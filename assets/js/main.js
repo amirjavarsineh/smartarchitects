@@ -2,26 +2,36 @@
 (function(){
   'use strict';
   var root = document.documentElement;
-  var lang = root.lang === 'en' ? 'en' : 'fa';
   var motionQuery = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
   var reduced = !!(motionQuery && motionQuery.matches);
   root.classList.remove('no-js');
 
+  var faDigits = '۰۱۲۳۴۵۶۷۸۹';
+  function fmt(n){ return String(n).replace(/\d/g, function(d){ return faDigits[d]; }); }
+
   /* ---------- Theme ---------- */
   var themeBtn = document.querySelector('.theme-toggle');
-  function setTheme(t){
+  var userChose = false;
+  try{ userChose = !!localStorage.getItem('theme'); }catch(e){}
+  function applyTheme(t, save){
     root.setAttribute('data-theme', t);
-    try{ localStorage.setItem('theme', t); }catch(e){}
+    if(save){ try{ localStorage.setItem('theme', t); }catch(e){} }
     if(themeBtn) themeBtn.setAttribute('aria-pressed', t === 'dark');
   }
   if(themeBtn){
     themeBtn.setAttribute('aria-pressed', root.getAttribute('data-theme') === 'dark');
     themeBtn.addEventListener('click', function(){
-      setTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+      userChose = true;
+      applyTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark', true);
     });
   }
+  if(window.matchMedia){
+    var darkMq = window.matchMedia('(prefers-color-scheme: dark)');
+    var onSys = function(e){ if(!userChose) applyTheme(e.matches ? 'dark' : 'light', false); };
+    if(darkMq.addEventListener) darkMq.addEventListener('change', onSys);
+  }
 
-  /* ---------- Header / menu / to-top ---------- */
+  /* ---------- Header / to-top ---------- */
   var header = document.querySelector('header');
   var toTop = document.querySelector('.to-top');
   function onScroll(){
@@ -33,24 +43,27 @@
   onScroll();
   if(toTop) toTop.addEventListener('click', function(){ window.scrollTo({top:0, behavior:reduced ? 'auto' : 'smooth'}); });
 
+  /* ---------- Mobile menu ---------- */
   var burger = document.querySelector('.burger');
   var menu = document.getElementById('menu');
   if(burger && menu){
-    burger.addEventListener('click', function(){
-      var open = menu.classList.toggle('open');
-      burger.setAttribute('aria-expanded', open);
+    var setMenu = function(open){
+      menu.classList.toggle('open', open);
+      document.body.classList.toggle('menu-open', open);
+      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+      burger.setAttribute('aria-label', open ? 'بستن منو' : 'باز کردن منو');
+    };
+    burger.addEventListener('click', function(){ setMenu(!menu.classList.contains('open')); });
+    menu.addEventListener('click', function(e){ if(e.target.tagName === 'A') setMenu(false); });
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape' && menu.classList.contains('open')){ setMenu(false); burger.focus(); }
     });
-    menu.addEventListener('click', function(e){
-      if(e.target.tagName === 'A'){ menu.classList.remove('open'); burger.setAttribute('aria-expanded', 'false'); }
+    document.addEventListener('click', function(e){
+      if(menu.classList.contains('open') && !menu.contains(e.target) && !burger.contains(e.target)) setMenu(false);
     });
   }
 
   /* ---------- Reveal + counters ---------- */
-  var faDigits = '۰۱۲۳۴۵۶۷۸۹';
-  function fmt(n){
-    var s = String(n);
-    return lang === 'fa' ? s.replace(/\d/g, function(d){ return faDigits[d]; }) : s;
-  }
   function count(el){
     var target = +el.dataset.count, suffix = el.dataset.suffix || '', start = null;
     if(reduced){ el.textContent = fmt(target) + suffix; return; }
@@ -83,7 +96,7 @@
     var ctx = canvas.getContext('2d');
     var nodes = [], W = 0, H = 0, dpr = 1, running = false, visible = true, mouse = {x:-9999, y:-9999};
     var colors = ['#14b8a6', '#f5b942', '#5b9cf0'];
-    function resize(){
+    var resize = function(){
       dpr = Math.min(window.devicePixelRatio || 1, 2);
       W = canvas.clientWidth; H = canvas.clientHeight;
       canvas.width = W * dpr; canvas.height = H * dpr;
@@ -98,8 +111,8 @@
           c:colors[i % 3], p:Math.random() * 6.28
         });
       }
-    }
-    function frame(){
+    };
+    var frame = function(){
       ctx.clearRect(0, 0, W, H);
       var max = 140, i, j, a, b, dx, dy, d;
       for(i = 0; i < nodes.length; i++){
@@ -128,12 +141,18 @@
       }
       ctx.globalAlpha = 1;
       if(running) requestAnimationFrame(frame);
-    }
-    function start(){ if(!running && visible && !document.hidden && !reduced){ running = true; requestAnimationFrame(frame); } }
-    function stop(){ running = false; }
+    };
+    var start = function(){ if(!running && visible && !document.hidden && !reduced){ running = true; requestAnimationFrame(frame); } };
+    var stop = function(){ running = false; };
     resize(); frame();
     var rt;
-    window.addEventListener('resize', function(){ clearTimeout(rt); rt = setTimeout(function(){ resize(); if(!running) frame(); }, 150); });
+    window.addEventListener('resize', function(){
+      clearTimeout(rt);
+      rt = setTimeout(function(){
+        /* فقط وقتی عرض عوض شد بازسازی شود (جلوگیری از پرش در موبایل) */
+        if(canvas.clientWidth !== W){ resize(); if(!running) frame(); }
+      }, 150);
+    });
     var host = canvas.parentElement;
     host.addEventListener('pointermove', function(e){ var r = canvas.getBoundingClientRect(); mouse.x = e.clientX - r.left; mouse.y = e.clientY - r.top; });
     host.addEventListener('pointerleave', function(){ mouse.x = mouse.y = -9999; });
@@ -146,44 +165,66 @@
 
   /* ---------- 3D BMS building (CSS 3D) ---------- */
   var bld = document.querySelector('.building');
-  if(bld){
-    var stage = bld.closest('.demo-stage');
-    var rotY = -35, rotX = -18, dragging = false, lastX = 0, lastY = 0, idle = 0, autoOn = !reduced;
-    function apply(){ bld.style.transform = 'rotateX(' + rotX + 'deg) rotateY(' + rotY + 'deg)'; }
+  var stage = bld ? bld.closest('.demo-stage') : null;
+  if(bld && stage){
+    var rotY = -35, rotX = -18, dragging = false, lastX = 0, lastY = 0, moved = 0, idle = 0, inView = true;
+    var tip = stage.querySelector('.floor-tip');
+    var hideTip = function(){ if(tip) tip.hidden = true; };
+    var apply = function(){ bld.style.transform = 'rotateX(' + rotX + 'deg) rotateY(' + rotY + 'deg)'; };
     apply();
-    function spin(){
-      if(autoOn && !dragging && Date.now() - idle > 2500) { rotY += .18; apply(); }
-      requestAnimationFrame(spin);
+
+    if('IntersectionObserver' in window){
+      new IntersectionObserver(function(en){ inView = en[0].isIntersecting; }).observe(stage);
     }
+    var spin = function(){
+      if(!reduced && inView && !document.hidden && !dragging && Date.now() - idle > 2500){ rotY += .18; apply(); }
+      requestAnimationFrame(spin);
+    };
     if(!reduced) requestAnimationFrame(spin);
-    stage.addEventListener('pointerdown', function(e){ dragging = true; lastX = e.clientX; lastY = e.clientY; stage.setPointerCapture(e.pointerId); });
+
+    stage.addEventListener('pointerdown', function(e){
+      dragging = true; moved = 0; lastX = e.clientX; lastY = e.clientY;
+    });
     stage.addEventListener('pointermove', function(e){
       if(!dragging) return;
-      rotY += (e.clientX - lastX) * .5;
-      rotX = Math.max(-40, Math.min(5, rotX - (e.clientY - lastY) * .3));
-      lastX = e.clientX; lastY = e.clientY; apply();
+      var dx = e.clientX - lastX, dy = e.clientY - lastY;
+      moved += Math.abs(dx) + Math.abs(dy);
+      /* فقط بعد از کشیدن واقعی، اشاره‌گر را قفل می‌کنیم تا کلیک روی طبقه‌ها کار کند */
+      if(moved > 6){
+        if(!stage.hasPointerCapture(e.pointerId)) stage.setPointerCapture(e.pointerId);
+        hideTip();
+        rotY += dx * .5;
+        rotX = Math.max(-40, Math.min(5, rotX - dy * .3));
+        apply();
+      }
+      lastX = e.clientX; lastY = e.clientY;
     });
-    function end(){ dragging = false; idle = Date.now(); }
+    var end = function(e){
+      dragging = false; idle = Date.now();
+      if(e && e.pointerId !== undefined && stage.hasPointerCapture(e.pointerId)) stage.releasePointerCapture(e.pointerId);
+    };
     stage.addEventListener('pointerup', end);
     stage.addEventListener('pointercancel', end);
     stage.addEventListener('keydown', function(e){
-      if(e.key === 'ArrowLeft'){ rotY -= 10; } else if(e.key === 'ArrowRight'){ rotY += 10; } else return;
+      if(e.key === 'ArrowLeft'){ rotY -= 10; }
+      else if(e.key === 'ArrowRight'){ rotY += 10; }
+      else if(e.key === 'ArrowUp'){ rotX = Math.min(5, rotX + 5); }
+      else if(e.key === 'ArrowDown'){ rotX = Math.max(-40, rotX - 5); }
+      else return;
       e.preventDefault(); idle = Date.now(); apply();
     });
 
-    if(!stage) return;
-    var tip = stage.querySelector('.floor-tip');
-    var floors = bld.querySelectorAll('.floor');
-    floors.forEach(function(f){
+    bld.querySelectorAll('.floor').forEach(function(f){
       var label = f.dataset.label || 'اطلاعات طبقه';
       f.setAttribute('aria-label', label);
-      function showTip(){ if(!dragging && tip){ tip.textContent = label; tip.hidden = false; } }
-      function hideTip(){ if(tip) tip.hidden = true; }
+      var showTip = function(){ if(!dragging && tip){ tip.textContent = label; tip.hidden = false; } };
       f.addEventListener('pointerenter', showTip);
       f.addEventListener('pointerleave', hideTip);
       f.addEventListener('focus', showTip);
       f.addEventListener('blur', hideTip);
-      f.addEventListener('click', function(){ if(tip){ if(!tip.hidden && tip.textContent === label) hideTip(); else showTip(); } });
+      f.addEventListener('click', function(){
+        if(tip){ if(!tip.hidden && tip.textContent === label) hideTip(); else showTip(); }
+      });
       f.addEventListener('keydown', function(e){ if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); showTip(); } });
     });
 
@@ -200,81 +241,58 @@
     });
   }
 
-  /* ---------- Contact form ---------- */
-  var FORM_ENDPOINT = 'https://formspree.io/f/xkjovqkn';
-  var FALLBACK_EMAIL = 'info@smartfuture.ir';
-  var T = {
-    fa:{sending:'در حال ارسال...', ok:'✓ درخواست شما ثبت شد. کارشناسان ما به‌زودی با شما تماس می‌گیرند.', err:'ارسال ناموفق بود. لطفاً دوباره تلاش کنید یا مستقیم تماس بگیرید.', mail:'برنامه ایمیل شما باز شد؛ لطفاً پیام را ارسال کنید.', subject:'درخواست مشاوره', name:'نام', phone:'تلفن', email:'ایمیل', service:'خدمت', msg:'توضیحات'},
-    en:{sending:'Sending...', ok:'✓ Request received. Our team will contact you shortly.', err:'Sending failed. Please try again or contact us directly.', mail:'Your email app has opened; please send the message.', subject:'Consultation request', name:'Name', phone:'Phone', email:'Email', service:'Service', msg:'Details'}
-  }[lang];
-
-  var form = document.getElementById('contactForm');
+  /* ---------- Contact form (صفحه اصلی) ---------- */
+  var form = document.getElementById('form');
   if(form){
     var sel = form.querySelector('select[name="service"]');
-    var pre = new URLSearchParams(location.search).get('service') || form.dataset.service;
-    if(sel && pre && sel.querySelector('option[value="' + pre + '"]')) sel.value = pre;
+    var status = document.getElementById('ok');
+    var btn = document.getElementById('submitBtn');
+    var pre = '';
+    try{ pre = new URLSearchParams(location.search).get('service') || ''; }catch(e){}
+    var preselect = function(){
+      if(!sel || !pre) return;
+      for(var i = 0; i < sel.options.length; i++){
+        if(sel.options[i].value === pre){ sel.selectedIndex = i; break; }
+      }
+    };
+    preselect();
+
+    var show = function(text, isErr){
+      status.className = 'success' + (isErr ? ' err' : '');
+      status.textContent = text;
+      status.style.display = 'block';
+    };
 
     form.addEventListener('submit', function(e){
       e.preventDefault();
-      var msg = form.querySelector('.success'), btn = form.querySelector('button[type="submit"]');
-      if(form.querySelector('.hp input').value) return;
-      var data = new FormData(form);
-      var label = btn.textContent;
-      function show(text, isErr){ msg.textContent = text; msg.classList.toggle('err', !!isErr); msg.style.display = 'block'; }
-
-      if(!FORM_ENDPOINT){
-        var body = [T.name + ': ' + data.get('name'), T.phone + ': ' + data.get('phone'), T.email + ': ' + (data.get('email') || '-'), T.service + ': ' + (sel ? sel.options[sel.selectedIndex].text : ''), '', T.msg + ':', data.get('message') || '-'].join('\n');
-        location.href = 'mailto:' + FALLBACK_EMAIL + '?subject=' + encodeURIComponent(T.subject) + '&body=' + encodeURIComponent(body);
-        show(T.mail);
+      if(!form.reportValidity()) return;
+      var hp = form.querySelector('.hp input');
+      if(hp && hp.value) return;
+      var endpoint = form.getAttribute('data-endpoint') || '';
+      if(!endpoint){
+        show('ارسال آنلاین هنوز پیکربندی نشده است. لطفاً با ایمیل info@smartarchitects.ir تماس بگیرید.', true);
         return;
       }
-      btn.disabled = true; btn.textContent = T.sending;
-      fetch(FORM_ENDPOINT, {method:'POST', body:data, headers:{Accept:'application/json'}})
-        .then(function(r){ if(!r.ok) throw 0; show(T.ok); form.reset(); if(sel && pre) sel.value = pre; })
-        .catch(function(){ show(T.err, true); })
-        .then(function(){ btn.disabled = false; btn.textContent = label; });
+      var oldText = btn.textContent;
+      btn.disabled = true; btn.textContent = 'در حال ارسال…';
+      show('در حال ارسال درخواست…', false);
+      fetch(endpoint, {method:'POST', headers:{'Accept':'application/json'}, body:new FormData(form)})
+        .then(function(r){
+          if(!r.ok) throw new Error('Request failed');
+          show('✓ درخواست شما ثبت شد. به‌زودی با شما تماس می‌گیریم.', false);
+          form.reset(); preselect();
+        })
+        .catch(function(){
+          show('ارسال انجام نشد. لطفاً دوباره تلاش کنید یا به info@smartarchitects.ir ایمیل بزنید.', true);
+        })
+        .then(function(){ btn.disabled = false; btn.textContent = oldText; });
     });
   }
 
   /* ---------- Footer year ---------- */
-  var yr = document.getElementById('year');
+  var yr = document.getElementById('yr');
   if(yr){
-    var y = new Date().getFullYear();
-    yr.textContent = lang === 'fa' ? fmt(new Intl.DateTimeFormat('fa-IR-u-nu-latn', {year:'numeric'}).format(new Date()).replace(/\D/g, '')) : y;
+    try{ yr.textContent = new Date().toLocaleDateString('fa-IR', {year:'numeric'}); }
+    catch(e){ yr.textContent = new Date().getFullYear(); }
   }
 })();
-
-
-  /* ---------- Homepage-only form and footer ---------- */
-  var year = document.getElementById('yr');
-  if(year) year.textContent = new Date().toLocaleDateString('fa-IR', {year:'numeric'});
-  var form = document.getElementById('form');
-  if(form){
-    form.addEventListener('submit', async function(e){
-      e.preventDefault();
-      if(!form.reportValidity()) return;
-      var btn = document.getElementById('submitBtn');
-      var status = document.getElementById('ok');
-      var endpoint = form.getAttribute('data-endpoint') || '';
-      var data = Object.fromEntries(new FormData(form).entries());
-      if(!endpoint){
-        status.className = 'success err';
-        status.textContent = 'ارسال آنلاین هنوز پیکربندی نشده است. لطفاً از راه‌های تماس درج‌شده در سایت استفاده کنید.';
-        status.style.display = 'block';
-        return;
-      }
-      btn.disabled = true;
-      var oldText = btn.textContent;
-      btn.textContent = 'در حال ارسال…';
-      status.style.display = 'block'; status.className = 'success'; status.textContent = 'در حال ارسال درخواست…';
-      try{
-        var response = await fetch(endpoint, {method:'POST', headers:{'Accept':'application/json'}, body:new FormData(form)});
-        if(!response.ok) throw new Error('Request failed');
-        status.textContent = 'درخواست شما ثبت شد. به‌زودی با شما تماس می‌گیریم.';
-        form.reset();
-      }catch(err){
-        status.className = 'success err';
-        status.textContent = 'ارسال انجام نشد. لطفاً بعداً دوباره تلاش کنید یا از راه‌های تماس درج‌شده در سایت استفاده کنید.';
-      }finally{btn.disabled = false; btn.textContent = oldText;}
-    });
-  }
