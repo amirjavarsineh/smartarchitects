@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>امنیت را از روز اول وارد پروژه کنید | معماران هوشمند فردا</title>
+<meta name="description" content="چرا امنیت نرم‌افزار باید از ابتدای پروژه لحاظ شود: اصل حداقل دسترسی، نگهداری امن کلیدها، به‌روزرسانی وابستگی‌ها و پشتیبان‌گیری.">
+<link rel="canonical" href="https://smartarchitects.ir/blog/software-security.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="امنیت را از روز اول وارد پروژه کنید">
+<meta property="og:description" content="چرا امنیت نرم‌افزار باید از ابتدای پروژه لحاظ شود.">
+<meta property="og:url" content="https://smartarchitects.ir/blog/software-security.html">
+<meta property="og:image" content="https://smartarchitects.ir/assets/img/og-cover.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<script>(function(){try{var t=localStorage.getItem('theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.dataset.theme=t}catch(e){}})()</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" sizes="96x96" href="../assets/img/favicon-96x96.png">
+<link rel="shortcut icon" href="../assets/img/favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="../assets/img/apple-touch-icon.png">
+<link rel="manifest" href="../site.webmanifest">
+<link rel="stylesheet" href="../assets/css/style.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "امنیت را از روز اول وارد پروژه کنید",
+  "description": "چرا امنیت نرم‌افزار باید از ابتدای پروژه لحاظ شود.",
+  "author": { "@type": "Organization", "name": "معماران هوشمند فردا" },
+  "publisher": {
+    "@type": "Organization",
+    "name": "معماران هوشمند فردا",
+    "logo": { "@type": "ImageObject", "url": "https://smartarchitects.ir/assets/img/logo.png" }
+  },
+  "datePublished": "2026-10-13",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://smartarchitects.ir/blog/software-security.html"
+  }
+}
+</script>
+</head>
+<body>
+
+<a class="skip" href="#main-content">رفتن به محتوای اصلی</a>
+
+<header class="solid"><div class="container nav">
+<a class="logo" href="../index.html" aria-label="معماران هوشمند فردا - صفحه اصلی"><img class="logo-img" src="../assets/img/logo.png" alt="" width="56" height="56"><span>معماران هوشمند فردا</span></a>
+<ul class="menu" id="menu"><li><a href="../index.html">خانه</a></li><li><a href="../pages/network.html">شبکه و زیرساخت</a></li><li><a href="../pages/software.html">توسعه نرم‌افزار</a></li><li><a href="../pages/bms.html">مدیریت هوشمند ساختمان (BMS)</a></li><li><a href="../pages/smart-home.html">خانه هوشمند</a></li><li><a href="index.html" aria-current="page">مقالات</a></li></ul>
+<div class="nav-tools"><button class="tool-btn theme-toggle" type="button" aria-label="تغییر تم" aria-pressed="false"><svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M5 19l1.5-1.5M17.5 6.5L19 5"/></svg><svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 13A9 9 0 1111 3a7 7 0 0010 10z"/></svg></button>
+<a href="../index.html#contact" class="btn btn-primary nav-cta">مشاوره رایگان</a><button class="burger" id="burger" type="button" aria-label="باز کردن منو" aria-controls="menu" aria-expanded="false">☰</button></div>
+</div></header>
+
+<main id="main-content">
+
+<section class="page-hero">
+<canvas class="net-map" aria-hidden="true"></canvas>
+<div class="container" style="position:relative">
+<ol class="crumbs"><li><a href="../index.html">خانه</a></li><li><a href="index.html">مقالات</a></li><li>امنیت نرم‌افزار</li></ol>
+<h1>امنیت را از <span>روز اول</span> وارد پروژه کنید</h1>
+<p>چرا افزودن امنیت در انتهای پروژه گران‌تر تمام می‌شود و چه اصولی باید از ابتدا رعایت شود.</p>
+<p class="meta" style="color:#94a3b8;margin-top:14px">زمان مطالعه: حدود ۶ دقیقه</p>
+</div>
+</section>
+
+<section>
+<div class="container">
+<article class="prose" style="max-width:820px;margin:0 auto">
+
+<p>در بسیاری از پروژه‌های <a href="../pages/software.html">توسعه نرم‌افزار سفارشی</a>، امنیت به آخرین مرحله موکول می‌شود. نتیجه؟ یا پروژه با آسیب‌پذیری‌های جدی تحویل داده می‌شود، یا هزینه‌ی اصلاح آن چند برابر هزینه‌ی طراحی اولیه است. در این مقاله، اصول امنیتی که باید از روز اول رعایت شوند را بررسی می‌کنیم.</p>
+
+<h2>چرا امنیت را نمی‌توان به آخر موکول کرد؟</h2>
+<ul>
+<li><strong>معماری:</strong> بسیاری از تصمیمات امنیتی روی معماری تأثیر دارند. تغییر معماری در انتهای پروژه یعنی بازنویسی</li>
+<li><strong>هزینه:</strong> رفع آسیب‌پذیری در فاز بهره‌برداری چند برابر گران‌تر است</li>
+<li><strong>اعتماد:</strong> یک حادثه‌ی امنیتی می‌تواند اعتماد مشتریان را برای همیشه از بین ببرد</li>
+<li><strong>قانون:</strong> در بسیاری از حوزه‌ها، رعایت امنیت الزام قانونی است</li>
+</ul>
+
+<h2>اصل اول: حداقل دسترسی</h2>
+<p>به هیچ کاربر یا سامانه‌ای بیشتر از نیازش دسترسی ندهید. مثلاً:</p>
+<ul class="checklist">
+<li>کاربر پشتیبانی نباید به داده‌های مالی دسترسی داشته باشد</li>
+<li>یک سرویس خواندن گزارش، نباید مجوز نوشتن داشته باشد</li>
+<li>دسترسی ادمین فقط برای افرادی که واقعاً لازم دارند</li>
+<li>دسترسی‌ها را دوره‌ای بازبینی کنید</li>
+</ul>
+
+<h2>اصل دوم: نگهداری امن کلیدها و گذرواژه‌ها</h2>
+<p>یکی از رایج‌ترین اشتباهات، قرار دادن گذرواژه‌ها و کلیدهای API در کد است. این کار باعث می‌شود با هر بار به‌اشتراک‌گذاری کد، اطلاعات حساس لو برود.</p>
+<p>راه‌حل:</p>
+<ul>
+<li>استفاده از متغیرهای محیطی (Environment Variables)</li>
+<li>استفاده از سامانه‌های مدیریت کلید مثل Vault یا AWS Secrets Manager</li>
+<li>هرگز کلیدها را در Git ذخیره نکنید</li>
+<li>گذرواژه‌ها را به‌صورت Hash با الگوریتم‌های قوی ذخیره کنید</li>
+</ul>
+
+<h2>اصل سوم: اعتبارسنجی ورودی‌ها</h2>
+<p>هر داده‌ای که از کاربر می‌آید، می‌تواند خطرناک باشد. اعتبارسنجی باید در چند لایه انجام شود:</p>
+<ul class="checklist">
+<li>در فرانت‌اند برای تجربه‌ی بهتر کاربر</li>
+<li>در بک‌اند به‌عنوان لایه‌ی اصلی امنیت</li>
+<li>در پایگاه داده به‌عنوان آخرین خط دفاع (مثلاً محدودیت طول و نوع)</li>
+</ul>
+
+<h2>اصل چهارم: جلوگیری از آسیب‌پذیری‌های رایج</h2>
+
+<h3>SQL Injection</h3>
+<p>با استفاده از Prepared Statements یا ORM، از تزریق SQL جلوگیری کنید.</p>
+
+<h3>XSS (Cross-Site Scripting)</h3>
+<p>هر داده‌ای که از کاربر می‌گیرید و در صفحه نمایش می‌دهید، باید Escape شود.</p>
+
+<h3>CSRF (Cross-Site Request Forgery)</h3>
+<p>فرم‌ها باید توکن CSRF داشته باشند تا از ارسال درخواست‌های جعلی جلوگیری شود.</p>
+
+<h3>Authentication Bypass</h3>
+<p>هر صفحه‌ی محافظت‌شده باید در بک‌اند بررسی شود، نه فقط در فرانت‌اند.</p>
+
+<h2>اصل پنجم: به‌روزرسانی وابستگی‌ها</h2>
+<p>هر کتابخانه یا پکیجی که استفاده می‌کنید، ممکن است آسیب‌پذیری داشته باشد. توصیه‌ها:</p>
+<ul class="checklist">
+<li>وابستگی‌ها را هفتگی یا ماهانه به‌روز کنید</li>
+<li>از ابزارهای بررسی امنیتی مثل Dependabot یا Snyk استفاده کنید</li>
+<li>پکیج‌های بدون نگهداری را جایگزین کنید</li>
+<li>نسخه‌های قدیمی را حذف کنید</li>
+</ul>
+
+<h2>اصل ششم: ثبت رخدادها (Logging)</h2>
+<p>هر عملیات مهم باید در لاگ ثبت شود:</p>
+<ul>
+<li>ورود و خروج کاربران (موفق و ناموفق)</li>
+<li>تغییرات در داده‌های حساس</li>
+<li>خطاهای سیستمی</li>
+<li>درخواست‌های غیرعادی</li>
+</ul>
+<p>لاگ‌ها باید در جای امن ذخیره شوند و فقط افراد مجاز به آن‌ها دسترسی داشته باشند.</p>
+
+<h2>اصل هفتم: پشتیبان‌گیری</h2>
+<p>حتی با بهترین امنیت، همیشه احتمال حادثه وجود دارد. پشتیبان‌گیری باید:</p>
+<ul class="checklist">
+<li>به‌صورت خودکار انجام شود</li>
+<li>در چند نسخه (روزانه، هفتگی، ماهانه) نگه داشته شود</li>
+<li>در جای جداگانه از سرور اصلی ذخیره شود</li>
+<li>هر چند وقت یک‌بار، بازیابی از پشتیبان آزمایش شود</li>
+</ul>
+
+<h2>اصل هشتم: رمزنگاری</h2>
+<ul class="checklist">
+<li>در انتقال: HTTPS برای تمام ارتباطات</li>
+<li>در ذخیره: رمزنگاری داده‌های حساس در پایگاه داده</li>
+<li>گذرواژه‌ها: Hash با bcrypt یا Argon2 (نه MD5 یا SHA1)</li>
+</ul>
+
+<div class="callout">
+<strong>نکته‌ی مهم:</strong> امنیت یک «قابلیت» نیست که بتوان اضافه یا حذف کرد؛ یک «ویژگی» است که در تمام طول پروژه باید لحاظ شود. بهترین زمان برای فکر کردن به امنیت، روز اول پروژه است.
+</div>
+
+<h2>چک‌لیست امنیتی پیش از انتشار</h2>
+<ul class="checklist">
+<li>همه‌ی گذرواژه‌های پیش‌فرض عوض شده‌اند</li>
+<li>کلیدها در کد نیستند</li>
+<li>HTTPS فعال است</li>
+<li>اعتبارسنجی ورودی‌ها در بک‌اند انجام می‌شود</li>
+<li>SQL Injection و XSS و CSRF پوشش داده شده‌اند</li>
+<li>لاگ‌ها فعال هستند</li>
+<li>پشتیبان‌گیری خودکار کار می‌کند</li>
+<li>وابستگی‌ها به‌روز هستند</li>
+<li>دسترسی‌ها بر اساس اصل حداقل دسترسی تنظیم شده‌اند</li>
+</ul>
+
+<h2>جمع‌بندی</h2>
+<p>امنیت نرم‌افزار یک کار یک‌باره نیست، بلکه یک فرایند مستمر است. با رعایت اصول ساده ولی بنیادی از روز اول پروژه، می‌توان از بسیاری از حوادث پرهزینه جلوگیری کرد. هزینه‌ی پیشگیری از درمان همیشه کمتر است.</p>
+
+<div class="cta-band" style="margin-top:50px">
+<div>
+<h2>پروژه‌ی نرم‌افزاری در ذهن دارید؟</h2>
+<p>کارشناسان ما رایگان نیاز پروژه شما را بررسی می‌کنند.</p>
+</div>
+<a class="btn" href="../index.html?service=software#contact">مشاوره رایگان</a>
+</div>
+
+</article>
+</div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="foot">
+      <div class="foot-brand"><a class="footer-brand" href="../index.html"><img src="../assets/img/logo.png" alt="" class="foot-logo" width="64" height="64"><strong>معماران هوشمند فردا</strong></a><p>راه‌حل‌های یکپارچه فناوری اطلاعات، شبکه، نرم‌افزار و سیستم‌های هوشمند ساختمان؛ از طراحی تا اجرا و پشتیبانی.</p></div>
+      <div><h4>خدمات</h4><ul><li><a href="../pages/network.html">شبکه و زیرساخت</a></li><li><a href="../pages/software.html">توسعه نرم‌افزار</a></li><li><a href="../pages/bms.html">مدیریت هوشمند ساختمان</a></li><li><a href="../pages/smart-home.html">خانه هوشمند</a></li></ul></div>
+      <div><h4>دسترسی سریع</h4><ul><li><a href="../index.html#about">درباره ما</a></li><li><a href="../index.html#process">روند همکاری</a></li><li><a href="../index.html#services">خدمات</a></li><li><a href="../index.html#contact">تماس و مشاوره</a></li></ul></div>
+      <div><h4>شروع همکاری</h4><p>برای بررسی نیازها و انتخاب راهکار مناسب، درخواست مشاوره ارسال کنید.</p><a class="btn btn-primary footer-cta" href="../index.html#contact">درخواست مشاوره</a></div>
+    </div>
+    <div class="copy">© <span id="yr"></span> معماران هوشمند فردا. تمامی حقوق محفوظ است. — <a href="../privacy.html" style="color:#94a3b8">حریم خصوصی</a></div>
+  </div>
+</footer>
+
+<button class="to-top" aria-label="بازگشت به بالا">↑</button>
+
+<script src="../assets/js/main.js" defer></script>
+</body>
+</html>

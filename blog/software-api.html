@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>API و یکپارچه‌سازی سیستم‌ها | معماران هوشمند فردا</title>
+<meta name="description" content="راهنمای عملی یکپارچه‌سازی سیستم‌ها با API: مالک داده، مجوزها، محدودیت نرخ، ثبت خطا و نسخه‌بندی.">
+<link rel="canonical" href="https://smartarchitects.ir/blog/software-api.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="API و یکپارچه‌سازی سیستم‌ها">
+<meta property="og:description" content="راهنمای عملی یکپارچه‌سازی سیستم‌ها با API.">
+<meta property="og:url" content="https://smartarchitects.ir/blog/software-api.html">
+<meta property="og:image" content="https://smartarchitects.ir/assets/img/og-cover.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<script>(function(){try{var t=localStorage.getItem('theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.dataset.theme=t}catch(e){}})()</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" sizes="96x96" href="../assets/img/favicon-96x96.png">
+<link rel="shortcut icon" href="../assets/img/favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="../assets/img/apple-touch-icon.png">
+<link rel="manifest" href="../site.webmanifest">
+<link rel="stylesheet" href="../assets/css/style.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "API و یکپارچه‌سازی سیستم‌ها",
+  "description": "راهنمای عملی یکپارچه‌سازی سیستم‌ها با API.",
+  "author": { "@type": "Organization", "name": "معماران هوشمند فردا" },
+  "publisher": {
+    "@type": "Organization",
+    "name": "معماران هوشمند فردا",
+    "logo": { "@type": "ImageObject", "url": "https://smartarchitects.ir/assets/img/logo.png" }
+  },
+  "datePublished": "2026-10-13",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://smartarchitects.ir/blog/software-api.html"
+  }
+}
+</script>
+</head>
+<body>
+
+<a class="skip" href="#main-content">رفتن به محتوای اصلی</a>
+
+<header class="solid"><div class="container nav">
+<a class="logo" href="../index.html" aria-label="معماران هوشمند فردا - صفحه اصلی"><img class="logo-img" src="../assets/img/logo.png" alt="" width="56" height="56"><span>معماران هوشمند فردا</span></a>
+<ul class="menu" id="menu"><li><a href="../index.html">خانه</a></li><li><a href="../pages/network.html">شبکه و زیرساخت</a></li><li><a href="../pages/software.html">توسعه نرم‌افزار</a></li><li><a href="../pages/bms.html">مدیریت هوشمند ساختمان (BMS)</a></li><li><a href="../pages/smart-home.html">خانه هوشمند</a></li><li><a href="index.html" aria-current="page">مقالات</a></li></ul>
+<div class="nav-tools"><button class="tool-btn theme-toggle" type="button" aria-label="تغییر تم" aria-pressed="false"><svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M5 19l1.5-1.5M17.5 6.5L19 5"/></svg><svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 13A9 9 0 1111 3a7 7 0 0010 10z"/></svg></button>
+<a href="../index.html#contact" class="btn btn-primary nav-cta">مشاوره رایگان</a><button class="burger" id="burger" type="button" aria-label="باز کردن منو" aria-controls="menu" aria-expanded="false">☰</button></div>
+</div></header>
+
+<main id="main-content">
+
+<section class="page-hero">
+<canvas class="net-map" aria-hidden="true"></canvas>
+<div class="container" style="position:relative">
+<ol class="crumbs"><li><a href="../index.html">خانه</a></li><li><a href="index.html">مقالات</a></li><li>API و یکپارچه‌سازی</li></ol>
+<h1><span>API</span> و یکپارچه‌سازی سیستم‌ها</h1>
+<p>چطور سامانه‌های مختلف سازمان را به هم وصل کنیم تا اتصال پایدار و قابل نگهداری بماند.</p>
+<p class="meta" style="color:#94a3b8;margin-top:14px">زمان مطالعه: حدود ۷ دقیقه</p>
+</div>
+</section>
+
+<section>
+<div class="container">
+<article class="prose" style="max-width:820px;margin:0 auto">
+
+<p>در بیشتر سازمان‌ها، سامانه‌های مختلفی مثل حسابداری، CRM، انبار، منابع انسانی و <a href="../pages/bms.html">BMS</a> در کنار هم کار می‌کنند. اگر این سامانه‌ها به هم وصل نشوند، داده‌ها در جزیره‌های جداگانه باقی می‌مانند و کاربران مجبور می‌شوند هر اطلاعات را چند بار وارد کنند. راه‌حل، یکپارچه‌سازی از طریق API است.</p>
+
+<h2>API چیست؟</h2>
+<p>API مخفف Application Programming Interface است. به زبان ساده، API یعنی «رابط» بین دو برنامه. یک برنامه می‌تواند اطلاعات را از برنامه‌ی دیگر درخواست کند یا به آن بفرستد، بدون این‌که به کد داخلی آن دسترسی داشته باشد.</p>
+<p>مثال: سامانه‌ی فروش می‌تواند با API، فاکتور جدید را به سامانه‌ی حسابداری ارسال کند — بدون این‌که کاربری وارد اطلاعات کند.</p>
+
+<h2>چرا یکپارچه‌سازی مهم است؟</h2>
+<ul class="checklist">
+<li>حذف ورود دستی داده و کاهش خطا</li>
+<li>دسترسی به اطلاعات به‌روز در همه‌ی سامانه‌ها</li>
+<li>کاهش زمان پردازش فرایندهای سازمانی</li>
+<li>امکان گزارش‌گیری یکپارچه و تصمیم‌گیری سریع‌تر</li>
+<li>افزایش رضایت کاربران و کاهش بار پشتیبانی</li>
+</ul>
+
+<h2>انواع رایج API</h2>
+
+<h3>REST API</h3>
+<p>رایج‌ترین نوع در وب. از متدهای HTTP (GET, POST, PUT, DELETE) استفاده می‌کند و پاسخ‌ها معمولاً در قالب JSON هستند. سادگی و مستندات گسترده از مزایای آن است.</p>
+
+<h3>SOAP API</h3>
+<p>قدیمی‌تر و سنگین‌تر، ولی همچنان در سیستم‌های بانکی و دولتی رایج است. از XML استفاده می‌کند و امنیت و تراکنش‌های پیچیده را بهتر پشتیبانی می‌کند.</p>
+
+<h3>GraphQL</h3>
+<p>رویکرد جدیدتری که به کلاینت اجازه می‌دهد دقیقاً همان داده‌ای را درخواست کند که نیاز دارد. برای سامانه‌های پیچیده مفید است.</p>
+
+<h3>Webhook</h3>
+<p>برعکس API معمولی. به جای این‌که شما درخواست بفرستید، سامانه‌ی مقابل هربار که رویدادی رخ داد، به شما اطلاع می‌دهد. برای اعلان‌های لحظه‌ای عالی است.</p>
+
+<h2>نکات مهم پیش از یکپارچه‌سازی</h2>
+
+<h3>۱. مالکیت داده</h3>
+<p>مشخص کنید کدام سامانه «منبع اصلی» هر داده است. مثلاً اطلاعات مشتری در CRM یا در حسابداری؟ اگر مشخص نباشد، داده‌ها متناقض می‌شوند.</p>
+
+<h3>۲. مجوزها و احراز هویت</h3>
+<p>هر API نیاز به احراز هویت دارد. رایج‌ترین روش‌ها:</p>
+<ul>
+<li><strong>API Key:</strong> ساده ولی امنیت پایین</li>
+<li><strong>OAuth 2.0:</strong> استاندارد امروزی، مناسب سامانه‌های بزرگ</li>
+<li><strong>JWT:</strong> توکن امضاشده برای انتقال امن اطلاعات</li>
+</ul>
+
+<h3>۳. محدودیت نرخ (Rate Limit)</h3>
+<p>هر API معمولاً محدودیت تعداد درخواست در ثانیه یا دقیقه دارد. پیش از طراحی، این محدودیت‌ها را بررسی و در معماری لحاظ کنید.</p>
+
+<h3>۴. مدیریت خطا</h3>
+<p>در یکپارچه‌سازی، خطا اجتناب‌ناپذیر است. باید مشخص شود:</p>
+<ul class="checklist">
+<li>اگر API مقصد پاسخ نداد، چه اتفاقی بیفتد؟</li>
+<li>آیا درخواست‌ها باید چند بار تلاش شوند (Retry)؟</li>
+<li>خطاها کجا ثبت شوند؟</li>
+<li>در صورت شکست، چطور به کاربر اطلاع داده شود؟</li>
+</ul>
+
+<h3>۵. نسخه‌بندی API</h3>
+<p>API‌ها با گذشت زمان تغییر می‌کنند. اگر نسخه‌بندی نباشد، هر تغییر می‌تواند اتصال را بشکند. معمولاً از URL استفاده می‌شود: <code>/api/v1/</code> و <code>/api/v2/</code>.</p>
+
+<h2>الگوهای رایج یکپارچه‌سازی</h2>
+
+<h3>اتصال نقطه‌به‌نقطه</h3>
+<p>ساده‌ترین حالت: دو سامانه مستقیم به هم وصل می‌شوند. برای تعداد کم سامانه مناسب است، ولی با رشد تعداد، پیچیدگی به‌سرعت بالا می‌رود.</p>
+
+<h3>لایه‌ی میانی (Middleware)</h3>
+<p>یک سامانه‌ی میانی، ارتباط بین چند سامانه را مدیریت می‌کند. مزیت: کاهش وابستگی مستقیم و راحتی تغییر.</p>
+
+<h3>صف پیام (Message Queue)</h3>
+<p>برای حجم بالای داده، از صف پیام استفاده می‌شود (مثل RabbitMQ یا Kafka). مزیت: مقاوم در برابر قطعی، مقیاس‌پذیر و قابل اتکا.</p>
+
+<h3>ESB (Enterprise Service Bus)</h3>
+<p>راه‌حل سنگین‌تری برای سازمان‌های بزرگ با ده‌ها سامانه. پیچیده ولی قدرتمند.</p>
+
+<div class="callout">
+<strong>نکته‌ی عملی:</strong> پیش از شروع یکپارچه‌سازی، همیشه یک «نقشه‌ی جریان داده» بکشید. در این نقشه، هر سامانه یک گره است و هر اتصال یک فلش. این نقشه ساده، از بسیاری از اشتباهات جلوگیری می‌کند.
+</div>
+
+<h2>اشتباهات رایج</h2>
+<ol>
+<li><strong>نادیده گرفتن نسخه‌بندی:</strong> تغییرات در آینده اتصال را می‌شکند</li>
+<li><strong>عدم مدیریت خطا:</strong> وقتی API قطع شود، سامانه به‌طور کامل از کار می‌افتد</li>
+<li><strong>ذخیره‌ی گذرواژه در کد:</strong> خطر امنیتی جدی</li>
+<li><strong>بدون مستندسازی:</strong> ماه‌ها بعد کسی نمی‌داند چه اتفاقی افتاده</li>
+<li><strong>نادیده گرفتن Rate Limit:</strong> سامانه‌ی مقابل IP شما را بلاک می‌کند</li>
+</ol>
+
+<h2>جمع‌بندی</h2>
+<p>یکپارچه‌سازی سیستم‌ها با API، سازمان را از جزیره‌های اطلاعاتی نجات می‌دهد و بهره‌وری را چند برابر می‌کند. ولی این کار فقط «اتصال دو برنامه» نیست؛ نیاز به طراحی دقیق، مستندسازی و مدیریت خطا دارد. اگر این اصول رعایت شود، اتصال سال‌ها بدون دردسر باقی می‌ماند.</p>
+
+<div class="cta-band" style="margin-top:50px">
+<div>
+<h2>پروژه‌ی نرم‌افزاری در ذهن دارید؟</h2>
+<p>کارشناسان ما رایگان نیاز پروژه شما را بررسی می‌کنند.</p>
+</div>
+<a class="btn" href="../index.html?service=software#contact">مشاوره رایگان</a>
+</div>
+
+</article>
+</div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="foot">
+      <div class="foot-brand"><a class="footer-brand" href="../index.html"><img src="../assets/img/logo.png" alt="" class="foot-logo" width="64" height="64"><strong>معماران هوشمند فردا</strong></a><p>راه‌حل‌های یکپارچه فناوری اطلاعات، شبکه، نرم‌افزار و سیستم‌های هوشمند ساختمان؛ از طراحی تا اجرا و پشتیبانی.</p></div>
+      <div><h4>خدمات</h4><ul><li><a href="../pages/network.html">شبکه و زیرساخت</a></li><li><a href="../pages/software.html">توسعه نرم‌افزار</a></li><li><a href="../pages/bms.html">مدیریت هوشمند ساختمان</a></li><li><a href="../pages/smart-home.html">خانه هوشمند</a></li></ul></div>
+      <div><h4>دسترسی سریع</h4><ul><li><a href="../index.html#about">درباره ما</a></li><li><a href="../index.html#process">روند همکاری</a></li><li><a href="../index.html#services">خدمات</a></li><li><a href="../index.html#contact">تماس و مشاوره</a></li></ul></div>
+      <div><h4>شروع همکاری</h4><p>برای بررسی نیازها و انتخاب راهکار مناسب، درخواست مشاوره ارسال کنید.</p><a class="btn btn-primary footer-cta" href="../index.html#contact">درخواست مشاوره</a></div>
+    </div>
+    <div class="copy">© <span id="yr"></span> معماران هوشمند فردا. تمامی حقوق محفوظ است. — <a href="../privacy.html" style="color:#94a3b8">حریم خصوصی</a></div>
+  </div>
+</footer>
+
+<button class="to-top" aria-label="بازگشت به بالا">↑</button>
+
+<script src="../assets/js/main.js" defer></script>
+</body>
+</html>

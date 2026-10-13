@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>حریم خصوصی در خانه هوشمند | معماران هوشمند فردا</title>
+<meta name="description" content="چطور حریم خصوصی خانه هوشمند را حفظ کنیم: مدیریت دسترسی‌ها، تغییر گذرواژه‌ها، جداسازی IoT از شبکه اصلی و به‌روزرسانی.">
+<link rel="canonical" href="https://smartarchitects.ir/blog/smart-home-privacy.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="حریم خصوصی در خانه هوشمند">
+<meta property="og:description" content="راهنمای حفظ حریم خصوصی در خانه هوشمند.">
+<meta property="og:url" content="https://smartarchitects.ir/blog/smart-home-privacy.html">
+<meta property="og:image" content="https://smartarchitects.ir/assets/img/og-cover.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<script>(function(){try{var t=localStorage.getItem('theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.dataset.theme=t}catch(e){}})()</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" sizes="96x96" href="../assets/img/favicon-96x96.png">
+<link rel="shortcut icon" href="../assets/img/favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="../assets/img/apple-touch-icon.png">
+<link rel="manifest" href="../site.webmanifest">
+<link rel="stylesheet" href="../assets/css/style.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "حریم خصوصی در خانه هوشمند",
+  "description": "راهنمای حفظ حریم خصوصی در خانه هوشمند.",
+  "author": { "@type": "Organization", "name": "معماران هوشمند فردا" },
+  "publisher": {"@type": "Organization","name": "معماران هوشمند فردا","logo": {"@type": "ImageObject", "url": "https://smartarchitects.ir/assets/img/logo.png"}},
+  "datePublished": "2026-10-13",
+  "mainEntityOfPage": {"@type": "WebPage","@id": "https://smartarchitects.ir/blog/smart-home-privacy.html"}
+}
+</script>
+</head>
+<body>
+
+<a class="skip" href="#main-content">رفتن به محتوای اصلی</a>
+
+<header class="solid"><div class="container nav">
+<a class="logo" href="../index.html" aria-label="معماران هوشمند فردا - صفحه اصلی"><img class="logo-img" src="../assets/img/logo.png" alt="" width="56" height="56"><span>معماران هوشمند فردا</span></a>
+<ul class="menu" id="menu"><li><a href="../index.html">خانه</a></li><li><a href="../pages/network.html">شبکه و زیرساخت</a></li><li><a href="../pages/software.html">توسعه نرم‌افزار</a></li><li><a href="../pages/bms.html">مدیریت هوشمند ساختمان (BMS)</a></li><li><a href="../pages/smart-home.html">خانه هوشمند</a></li><li><a href="index.html" aria-current="page">مقالات</a></li></ul>
+<div class="nav-tools"><button class="tool-btn theme-toggle" type="button" aria-label="تغییر تم" aria-pressed="false"><svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M5 19l1.5-1.5M17.5 6.5L19 5"/></svg><svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 13A9 9 0 1111 3a7 7 0 0010 10z"/></svg></button>
+<a href="../index.html#contact" class="btn btn-primary nav-cta">مشاوره رایگان</a><button class="burger" id="burger" type="button" aria-label="باز کردن منو" aria-controls="menu" aria-expanded="false">☰</button></div>
+</div></header>
+
+<main id="main-content">
+
+<section class="page-hero">
+<canvas class="net-map" aria-hidden="true"></canvas>
+<div class="container" style="position:relative">
+<ol class="crumbs"><li><a href="../index.html">خانه</a></li><li><a href="index.html">مقالات</a></li><li>حریم خصوصی</li></ol>
+<h1>حریم خصوصی در <span>خانه هوشمند</span></h1>
+<p>چطور بدون فدا کردن راحتی، حریم خصوصی خانواده را حفظ کنیم.</p>
+<p class="meta" style="color:#94a3b8;margin-top:14px">زمان مطالعه: حدود ۶ دقیقه</p>
+</div>
+</section>
+
+<section>
+<div class="container">
+<article class="prose" style="max-width:820px;margin:0 auto">
+
+<p>خانه هوشمند راحتی و امنیت می‌آورد، ولی اگر درست پیاده نشود می‌تواند به حریم خصوصی خانواده آسیب بزند. دوربین‌ها، میکروفن‌های دستیار صوتی، سنسورهای حرکت و دستگاه‌های متصل به اینترنت همه در حال جمع‌آوری داده هستند. در این مقاله، راه‌های حفظ حریم خصوصی را بررسی می‌کنیم.</p>
+
+<h2>۱. مدیریت دسترسی کاربران</h2>
+<p>هر عضو خانواده نباید به همه‌چیز دسترسی داشته باشد. بهترین شیوه:</p>
+<ul class="checklist">
+<li>برای هر کاربر، حساب جداگانه بسازید (نه یک حساب مشترک)</li>
+<li>دسترسی هر کاربر را بر اساس نیاز تنظیم کنید</li>
+<li>برای مهمان‌ها، دسترسی محدود و موقت بسازید</li>
+<li>پس از پایان نیاز (مثلاً کارگر موقت)، دسترسی را باطل کنید</li>
+<li>گذرواژه‌ها را به‌طور منظم تغییر دهید</li>
+</ul>
+
+<h2>۲. تغییر گذرواژه‌های پیش‌فرض</h2>
+<p>بسیاری از دوربین‌ها، روترها و هاب‌های خانه هوشمند با گذرواژه‌های پیش‌فرض مثل <code>admin/admin</code> عرضه می‌شوند. این گذرواژه‌ها در اینترنت منتشر شده‌اند و اولین هدف حمله هستند.</p>
+<p>قواعد مهم:</p>
+<ul class="checklist">
+<li>هر دستگاهی که به خانه می‌آید، اول گذرواژه‌اش را عوض کنید</li>
+<li>گذرواژه‌ی قوی استفاده کنید (حداقل ۱۲ کاراکتر با ترکیب حرف، عدد و نماد)</li>
+<li>برای هر دستگاه گذرواژه‌ی متفاوت بگذارید</li>
+<li>از مدیر گذرواژه استفاده کنید (مثل Bitwarden یا 1Password)</li>
+</ul>
+
+<h2>۳. جداسازی IoT از شبکه اصلی</h2>
+<p>دستگاه‌های IoT (دوربین، یخچال هوشمند، دستیار صوتی و...) معمولاً امنیت ضعیف‌تری دارند. اگر همه در یک شبکه با کامپیوترهای شخصی باشند، آلودگی یکی، بقیه را تهدید می‌کند.</p>
+<p>راه‌حل: یک شبکه‌ی Wi-Fi جداگانه برای IoT بسازید. در روترهای امروزی معمولاً گزینه‌ی <strong>Guest Network</strong> یا <strong>IoT Network</strong> وجود دارد.</p>
+
+<h2>۴. دوربین‌های امنیتی — نکات کلیدی</h2>
+<ul class="checklist">
+<li>دوربین‌ها را طوری نصب کنید که حریم خصوصی همسایه‌ها را نقض نکنند</li>
+<li>داخل خانه دوربین نصب نکنید (حتی اگر مجوز قانونی دارید، خانواده ممکن است راحت نباشد)</li>
+<li>ضبط محلی (Local Storage) را ترجیح دهید به ضبط ابری</li>
+<li>رمزنگاری ارتباط دوربین را فعال کنید</li>
+<li>دوربین‌های چینی ارزان را از برندهای ناشناخته اجتناب کنید</li>
+<li>پورت‌های دوربین را مستقیم به اینترنت باز نکنید (از VPN استفاده کنید)</li>
+</ul>
+
+<h2>۵. دستیارهای صوتی</h2>
+<p>دستگاه‌هایی مثل Alexa، Google Home و Siri همیشه گوش می‌دهند (یا حداقل کلمه‌ی کلیدی را تشخیص می‌دهند). نکات:</p>
+<ul class="checklist">
+<li>میکروفن دستگاه را در ساعات خاص (مثل شب) خاموش کنید</li>
+<li>تاریخچه‌ی صوتی را دوره‌ای پاک کنید</li>
+<li>در اتاق خواب و سرویس نصب نکنید</li>
+<li>تنظیمات حریم خصوصی را در اپلیکیشن بررسی کنید</li>
+</ul>
+
+<h2>۶. به‌روزرسانی‌ها</h2>
+<p>هر به‌روزرسانی معمولاً شامل رفع آسیب‌پذیری‌های امنیتی است. بنابراین:</p>
+<ul class="checklist">
+<li>به‌روزرسانی خودکار را فعال کنید</li>
+<li>اگر دستگاه به‌روزرسانی خودکار ندارد، دستی هر چند ماه چک کنید</li>
+<li>دستگاه‌هایی که دیگر پشتیبانی نمی‌شوند را جایگزین کنید</li>
+</ul>
+
+<h2>۷. انتخاب برند و دستگاه</h2>
+<p>پیش از خرید، این نکات را بررسی کنید:</p>
+<ul class="checklist">
+<li>آیا برند سابقه‌ی رعایت حریم خصوصی دارد؟</li>
+<li>آیا داده‌ها روی سرور داخلی یا ابر خارجی ذخیره می‌شوند؟</li>
+<li>آیا امکان استفاده بدون اینترنت (Local Control) وجود دارد؟</li>
+<li>آیا سیاست حریم خصوصی برند شفاف است؟</li>
+<li>آیا به‌روزرسانی‌های امنیتی منظم منتشر می‌شود؟</li>
+</ul>
+
+<h2>۸. کنترل محلی vs ابری</h2>
+<p>سیستم‌هایی که کاملاً ابری هستند، همه‌ی داده‌ها را به سرور سازنده می‌فرستند. سیستم‌هایی که کنترل محلی دارند، در صورت قطع اینترنت هم کار می‌کنند و داده‌ها کمتر بیرون می‌رود.</p>
+<p>ترجیح دهید سیستم‌هایی که کنترل محلی دارند، یا حداقل امکان انتخاب را داشته باشند.</p>
+
+<h2>۹. حریم خصوصی مهمانان</h2>
+<p>وقتی مهمان به خانه‌ی شما می‌آید، انتظار ندارد زیر نظر دوربین باشد. نکات اخلاقی:</p>
+<ul>
+<li>به مهمانان اطلاع دهید که دوربین وجود دارد</li>
+<li>در سرویس و اتاق مهمان، دوربین و میکروفن نصب نکنید</li>
+<li>برای مهمانان، دسترسی محدود به شبکه‌ی Wi-Fi بدهید</li>
+</ul>
+
+<div class="callout">
+<strong>نکته‌ی مهم:</strong> امنیت و حریم خصوصی، فقط فنی نیستند؛ نیازمند توافق خانوادگی و احترام متقابل هستند. پیش از نصب هر دستگاه، درباره‌ی آن با اعضای خانواده صحبت کنید.
+</div>
+
+<h2>چک‌لیست حریم خصوصی</h2>
+<ul class="checklist">
+<li>گذرواژه‌های پیش‌فرض همه‌ی دستگاه‌ها عوض شده‌اند</li>
+<li>هر کاربر حساب جداگانه دارد</li>
+<li>شبکه‌ی IoT از شبکه‌ی اصلی جدا است</li>
+<li>دوربین‌ها ضبط محلی دارند</li>
+<li>میکروفن دستیار صوتی در اتاق خواب خاموش است</li>
+<li>به‌روزرسانی‌ها خودکار هستند</li>
+<li>سیستم کنترل محلی دارد</li>
+<li>مهمانان از وجود دوربین‌ها مطلع هستند</li>
+</ul>
+
+<h2>جمع‌بندی</h2>
+<p>حریم خصوصی و خانه هوشمند با هم سازگار هستند، اگر درست پیاده شوند. با مدیریت دسترسی‌ها، جداسازی شبکه، تغییر گذرواژه‌ها و انتخاب سیستم‌های محلی، می‌توان بدون فدا کردن راحتی، حریم خصوصی خانواده را حفظ کرد. کلید اصلی، توجه به جزئیات از روز اول است — نه بعد از نصب.</p>
+
+<div class="cta-band" style="margin-top:50px">
+<div><h2>پروژه‌ی خانه هوشمند در ذهن دارید؟</h2><p>کارشناسان ما رایگان نیاز پروژه شما را بررسی می‌کنند.</p></div>
+<a class="btn" href="../index.html?service=smarthome#contact">مشاوره رایگان</a>
+</div>
+
+</article>
+</div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="foot">
+      <div class="foot-brand"><a class="footer-brand" href="../index.html"><img src="../assets/img/logo.png" alt="" class="foot-logo" width="64" height="64"><strong>معماران هوشمند فردا</strong></a><p>راه‌حل‌های یکپارچه فناوری اطلاعات، شبکه، نرم‌افزار و سیستم‌های هوشمند ساختمان؛ از طراحی تا اجرا و پشتیبانی.</p></div>
+      <div><h4>خدمات</h4><ul><li><a href="../pages/network.html">شبکه و زیرساخت</a></li><li><a href="../pages/software.html">توسعه نرم‌افزار</a></li><li><a href="../pages/bms.html">مدیریت هوشمند ساختمان</a></li><li><a href="../pages/smart-home.html">خانه هوشمند</a></li></ul></div>
+      <div><h4>دسترسی سریع</h4><ul><li><a href="../index.html#about">درباره ما</a></li><li><a href="../index.html#process">روند همکاری</a></li><li><a href="../index.html#services">خدمات</a></li><li><a href="../index.html#contact">تماس و مشاوره</a></li></ul></div>
+      <div><h4>شروع همکاری</h4><p>برای بررسی نیازها و انتخاب راهکار مناسب، درخواست مشاوره ارسال کنید.</p><a class="btn btn-primary footer-cta" href="../index.html#contact">درخواست مشاوره</a></div>
+    </div>
+    <div class="copy">© <span id="yr"></span> معماران هوشمند فردا. تمامی حقوق محفوظ است. — <a href="../privacy.html" style="color:#94a3b8">حریم خصوصی</a></div>
+  </div>
+</footer>
+
+<button class="to-top" aria-label="بازگشت به بالا">↑</button>
+<script src="../assets/js/main.js" defer></script>
+</body>
+</html>

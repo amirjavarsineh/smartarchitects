@@ -107,10 +107,10 @@ header.scrolled .logo-img,header.solid .logo-img{height:56px;width:56px}
 [data-theme="dark"] .card-link{color:var(--teal)}
 .card-link:hover{gap:10px}
 
-/* BMS 3D demo */
+/* BMS 3D demo — base */
 .bms-demo{background:var(--bg-2)}
-.demo-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:50px;align-items:center}
-.demo-stage{position:relative;aspect-ratio:1.12/1;max-height:580px;min-height:390px;width:100%;border-radius:30px;background:radial-gradient(circle at 50% 70%,#163a66,var(--navy) 70%);box-shadow:var(--shadow);overflow:hidden;cursor:grab;touch-action:pan-y;display:flex;justify-content:center;align-items:center;perspective:1100px;isolation:isolate}
+.demo-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+.demo-stage{position:relative;aspect-ratio:1.12/1;max-height:580px;min-height:390px;width:100%;border-radius:30px;background:radial-gradient(circle at 50% 70%,#163a66,var(--navy) 70%);box-shadow:var(--shadow);overflow:hidden;cursor:grab;touch-action:pan-y;display:flex;justify-content:center;align-items:center;perspective:1100px;isolation:isolate;transition:background .6s ease}
 .demo-stage:active{cursor:grabbing}
 .scene{position:relative;width:100%;height:100%;display:flex;justify-content:center;align-items:center}
 .building{--w:150px;--d:110px;--fh:44px;position:relative;width:var(--w);height:calc(var(--fh) * 6);transform-style:preserve-3d;transform:rotateX(-18deg) rotateY(-35deg)}
@@ -174,6 +174,7 @@ header.scrolled .logo-img,header.solid .logo-img{height:56px;width:56px}
 .prose table{width:100%;border-collapse:collapse;margin:10px 0 24px;font-size:.95rem;background:var(--card);border-radius:14px;overflow:hidden}
 .prose th,.prose td{padding:12px 14px;border:1px solid var(--line);text-align:start;vertical-align:top}
 .prose th{background:rgba(20,184,166,.1);color:var(--heading)}
+.table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:10px 0 24px}
 .callout{padding:18px 22px;border-radius:16px;background:rgba(245,185,66,.12);border-inline-start:4px solid var(--gold);margin:22px 0}
 .feature-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin:10px 0 24px}
 .feature{padding:22px;border-radius:16px;background:var(--card);border:1px solid var(--line)}
@@ -242,14 +243,342 @@ footer a:hover{color:var(--gold)}
 /* Knowledge */
 .knowledge-section{background:var(--bg-2)}
 .knowledge-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
-.knowledge-card{padding:26px;border:1px solid var(--line);border-radius:20px;background:var(--card);box-shadow:var(--shadow);height:100%;transition:transform .25s,border-color .25s}
+.knowledge-card{padding:26px;border:1px solid var(--line);border-radius:20px;background:var(--card);box-shadow:var(--shadow);height:100%;transition:transform .25s,border-color .25s;display:flex;flex-direction:column}
 .knowledge-card:hover{transform:translateY(-5px);border-color:var(--teal)}
 .knowledge-card h3{font-size:1.12rem;margin:12px 0 8px}
 .knowledge-card p{color:var(--muted);font-size:.95rem}
-.knowledge-tag{display:inline-flex;border-radius:999px;padding:4px 11px;background:rgba(20,184,166,.12);color:var(--teal-d);font-size:.8rem;font-weight:700}
+.knowledge-tag{display:inline-flex;border-radius:999px;padding:4px 11px;background:rgba(20,184,166,.12);color:var(--teal-d);font-size:.8rem;font-weight:700;align-self:flex-start}
 [data-theme="dark"] .knowledge-tag{color:#5eead4}
 
-/* Responsive */
+/* ============================================
+   Enhanced BMS Demo — v2
+   ============================================ */
+
+/* Day/Night background */
+.demo-stage.day-bg{
+  background:radial-gradient(circle at 50% 30%,#7fb8e8 0%,#4a7fb5 45%,#2d5a8a 100%);
+}
+.demo-stage.day-bg .floor .f{
+  background-color:rgba(70,120,180,.55);
+  border-color:rgba(200,225,255,.6);
+}
+.demo-stage.day-bg .floor .top{background:rgba(60,110,170,.75)}
+.demo-stage.day-bg .demo-hint{background:rgba(255,255,255,.65);color:#0b1f3a}
+.demo-stage.day-bg .floor-tip{background:#0b1f3a;color:#fff}
+
+/* Pulsing active floor */
+.building.sys-light .floor .f,
+.building.sys-hvac .floor .top{
+  animation:floorPulse 1.8s ease-in-out infinite;
+}
+@keyframes floorPulse{
+  0%,100%{box-shadow:0 0 0 0 rgba(245,185,66,.55)}
+  50%{box-shadow:0 0 24px 6px rgba(245,185,66,.75)}
+}
+.building.sys-security .floor .front{
+  animation:securityPulse 1.4s ease-in-out infinite;
+}
+@keyframes securityPulse{
+  0%,100%{box-shadow:inset 0 0 0 1px rgba(248,113,113,.7)}
+  50%{box-shadow:inset 0 0 0 3px rgba(248,113,113,1),0 0 20px rgba(248,113,113,.5)}
+}
+
+/* Floor info card */
+.floor-info{
+  position:absolute;
+  top:18px;
+  inset-inline-start:18px;
+  background:rgba(11,31,58,.96);
+  backdrop-filter:blur(12px);
+  color:#fff;
+  padding:16px 18px 14px;
+  border-radius:14px;
+  border:1px solid rgba(20,184,166,.5);
+  min-width:210px;
+  z-index:26;
+  font-size:.88rem;
+  box-shadow:0 16px 40px rgba(0,0,0,.5);
+  animation:infoSlide .3s ease;
+}
+@keyframes infoSlide{
+  from{transform:translateY(-10px);opacity:0}
+  to{transform:translateY(0);opacity:1}
+}
+.floor-info h4{
+  color:var(--gold);
+  margin-bottom:10px;
+  font-size:.95rem;
+  padding-inline-end:22px;
+}
+.floor-info .row{
+  display:flex;
+  justify-content:space-between;
+  padding:5px 0;
+  color:#cbd5e1;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.floor-info .row:last-child{border-bottom:0}
+.floor-info .row b{color:#fff}
+.floor-info .close{
+  position:absolute;
+  top:10px;
+  inset-inline-end:12px;
+  background:none;
+  border:0;
+  color:#94a3b8;
+  cursor:pointer;
+  font-size:1.1rem;
+  line-height:1;
+  padding:4px 8px;
+  border-radius:6px;
+  font-family:inherit;
+}
+.floor-info .close:hover{background:rgba(255,255,255,.1);color:#fff}
+
+/* Alert panel — FIXED, bottom-right of viewport */
+.alert-panel{
+  position:fixed;
+  bottom:24px;
+  inset-inline-end:24px;
+  inset-inline-start:auto;
+  width:min(420px,calc(100vw - 32px));
+  background:rgba(127,29,29,.97);
+  backdrop-filter:blur(12px);
+  color:#fff;
+  padding:16px 18px;
+  border-radius:16px;
+  border:1px solid #f87171;
+  z-index:9999;
+  box-shadow:0 20px 50px rgba(0,0,0,.55);
+  animation:alertSlide .35s ease;
+}
+
+
+
+
+@keyframes alertSlide{
+  from{transform:translateY(20px);opacity:0}
+  to{transform:translateY(0);opacity:1}
+}
+.alert-panel .a-head{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:8px;
+}
+.alert-panel .a-icon{
+  font-size:1.5rem;
+  line-height:1;
+  flex-shrink:0;
+  animation:blink 1.2s ease-in-out infinite;
+}
+@keyframes blink{50%{opacity:.4}}
+.alert-panel h4{
+  color:#fff;
+  margin:0;
+  font-size:.98rem;
+  line-height:1.4;
+}
+.alert-panel p{
+  font-size:.85rem;
+  color:#fecaca;
+  margin:0 0 12px;
+  line-height:1.7;
+  display:block;
+}
+.alert-panel .actions{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+}
+.alert-panel button{
+  padding:8px 14px;
+  border-radius:9px;
+  border:0;
+  cursor:pointer;
+  font:600 .82rem inherit;
+  font-family:inherit;
+  transition:.2s;
+  white-space:nowrap;
+}
+.alert-panel .primary{background:#fff;color:#991b1b;flex:1;min-width:120px}
+.alert-panel .primary:hover{background:#fee2e2}
+.alert-panel .ghost{background:rgba(255,255,255,.15);color:#fff}
+.alert-panel .ghost:hover{background:rgba(255,255,255,.25)}
+
+/* Dashboard column */
+.bms-dashboard > h3{
+  font-size:.98rem;
+  margin:0 0 10px;
+  color:var(--heading);
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.bms-dashboard > h3::before{
+  content:"";
+  width:4px;
+  height:16px;
+  border-radius:2px;
+  background:linear-gradient(180deg,var(--teal),var(--gold));
+}
+
+/* Scenario buttons */
+.scenario-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:8px;
+  margin-bottom:22px;
+}
+.scenario-btn{
+  padding:12px 6px 10px;
+  border-radius:12px;
+  border:1.5px solid var(--line);
+  background:var(--card);
+  color:var(--text);
+  cursor:pointer;
+  font:600 .82rem inherit;
+  font-family:inherit;
+  transition:all .25s;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:4px;
+  text-align:center;
+}
+.scenario-btn:hover{
+  border-color:var(--teal);
+  transform:translateY(-2px);
+  box-shadow:0 8px 20px -8px rgba(20,184,166,.5);
+}
+.scenario-btn[aria-pressed="true"]{
+  border-color:var(--teal);
+  background:rgba(20,184,166,.12);
+  color:var(--teal-d);
+}
+[data-theme="dark"] .scenario-btn[aria-pressed="true"]{color:var(--teal)}
+.scenario-btn .emoji{font-size:1.5rem;line-height:1}
+
+/* Manual control buttons */
+.bms-dashboard .sys-btns{margin:0 0 18px}
+
+/* Readout grid */
+.bms-dashboard .readout{
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+  margin-bottom:18px;
+}
+.bms-dashboard .readout div{padding:12px}
+.bms-dashboard .readout b{font-size:1.15rem}
+
+/* Live chart */
+.chart-wrap{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:14px 14px 10px;
+  margin-bottom:14px;
+}
+.chart-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  margin-bottom:8px;
+  font-size:.82rem;
+  color:var(--muted);
+}
+.chart-head b{
+  color:var(--heading);
+  font-size:1.05rem;
+  font-weight:800;
+}
+.chart-head b span{
+  font-size:.72rem;
+  font-weight:500;
+  color:var(--muted);
+  margin-inline-start:4px;
+}
+#bmsChart{
+  display:block;
+  width:100%;
+  height:80px;
+}
+
+/* Stats row */
+.dash-stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  margin-bottom:14px;
+}
+.dash-stat{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:12px 6px;
+  text-align:center;
+  transition:border-color .25s;
+}
+.dash-stat:hover{border-color:var(--teal)}
+.dash-stat b{
+  display:block;
+  font-size:1.1rem;
+  color:var(--heading);
+  font-weight:800;
+  line-height:1.2;
+}
+.dash-stat span{
+  font-size:.72rem;
+  color:var(--muted);
+  display:block;
+  margin-top:3px;
+}
+
+/* Day/Night toggle button */
+.day-night-btn{
+  width:100%;
+  padding:10px 14px;
+  border-radius:12px;
+  border:1.5px solid var(--line);
+  background:var(--card);
+  color:var(--text);
+  cursor:pointer;
+  font:600 .88rem inherit;
+  font-family:inherit;
+  transition:.25s;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  margin-bottom:10px;
+}
+.day-night-btn:hover{border-color:var(--teal);background:rgba(20,184,166,.06)}
+
+/* Alert trigger button */
+.alert-btn{
+  width:100%;
+  padding:10px 14px;
+  border-radius:12px;
+  border:1.5px dashed rgba(248,113,113,.7);
+  background:rgba(248,113,113,.06);
+  color:#ef4444;
+  cursor:pointer;
+  font:600 .88rem inherit;
+  font-family:inherit;
+  transition:.25s;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+}
+.alert-btn:hover{
+  background:rgba(248,113,113,.15);
+  border-style:solid;
+}
+
+/* ============================================
+   Responsive
+   ============================================ */
 @media (max-width:980px){
   .hero-grid,.about-grid,.contact-grid,.demo-grid,.content-grid{grid-template-columns:1fr}
   .steps{grid-template-columns:1fr 1fr}
@@ -259,6 +588,8 @@ footer a:hover{color:var(--gold)}
   .menu{gap:14px}
   .logo{font-size:.95rem}
   .nav-cta{padding:9px 12px!important}
+  .demo-grid{gap:30px}
+  .bms-dashboard{order:2}
 }
 @media (max-width:720px){
   :root{--logo-size:48px}
@@ -278,10 +609,28 @@ footer a:hover{color:var(--gold)}
   .cta-band{padding:30px}
   .knowledge-card{padding:22px}
   .footer-brand .foot-logo{width:50px;height:50px}
+
+  /* BMS dashboard on mobile */
+  .scenario-grid{grid-template-columns:repeat(2,1fr)}
+  .bms-dashboard .readout{grid-template-columns:1fr 1fr}
+  .dash-stats{grid-template-columns:1fr 1fr 1fr}
+
+  /* Alert panel on mobile — full width */
+  .alert-panel{
+    bottom:12px;
+    inset-inline-end:12px;
+    inset-inline-start:12px;
+    width:auto;
+  }
+  .alert-panel button{padding:9px 12px}
 }
 body.menu-open{overflow:hidden}
 
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
   .reveal{opacity:1;transform:none}
+  .building.sys-light .floor .f,
+  .building.sys-hvac .floor .top,
+  .building.sys-security .floor .front,
+  .alert-panel .a-icon{animation:none!important}
 }

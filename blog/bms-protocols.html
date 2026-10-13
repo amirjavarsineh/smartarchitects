@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>پروتکل‌های BACnet و Modbus چه تفاوتی دارند؟ | معماران هوشمند فردا</title>
+<meta name="description" content="مقایسه‌ی کامل پروتکل‌های BACnet و Modbus در اتوماسیون ساختمان: تفاوت‌ها، کاربردها، سرعت، توپولوژی و راهنمای انتخاب.">
+<link rel="canonical" href="https://smartarchitects.ir/blog/bms-protocols.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="پروتکل‌های BACnet و Modbus چه تفاوتی دارند؟">
+<meta property="og:description" content="مقایسه‌ی کامل دو پروتکل رایج در اتوماسیون ساختمان.">
+<meta property="og:url" content="https://smartarchitects.ir/blog/bms-protocols.html">
+<meta property="og:image" content="https://smartarchitects.ir/assets/img/og-cover.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<script>(function(){try{var t=localStorage.getItem('theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.dataset.theme=t}catch(e){}})()</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" sizes="96x96" href="../assets/img/favicon-96x96.png">
+<link rel="shortcut icon" href="../assets/img/favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="../assets/img/apple-touch-icon.png">
+<link rel="manifest" href="../site.webmanifest">
+<link rel="stylesheet" href="../assets/css/style.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "پروتکل‌های BACnet و Modbus چه تفاوتی دارند؟",
+  "description": "مقایسه‌ی کامل پروتکل‌های BACnet و Modbus در اتوماسیون ساختمان.",
+  "author": { "@type": "Organization", "name": "معماران هوشمند فردا" },
+  "publisher": {
+    "@type": "Organization",
+    "name": "معماران هوشمند فردا",
+    "logo": { "@type": "ImageObject", "url": "https://smartarchitects.ir/assets/img/logo.png" }
+  },
+  "datePublished": "2026-10-13",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://smartarchitects.ir/blog/bms-protocols.html"
+  }
+}
+</script>
+</head>
+<body>
+
+<a class="skip" href="#main-content">رفتن به محتوای اصلی</a>
+
+<header class="solid"><div class="container nav">
+<a class="logo" href="../index.html" aria-label="معماران هوشمند فردا - صفحه اصلی"><img class="logo-img" src="../assets/img/logo.png" alt="" width="56" height="56"><span>معماران هوشمند فردا</span></a>
+<ul class="menu" id="menu"><li><a href="../index.html">خانه</a></li><li><a href="../pages/network.html">شبکه و زیرساخت</a></li><li><a href="../pages/software.html">توسعه نرم‌افزار</a></li><li><a href="../pages/bms.html">مدیریت هوشمند ساختمان (BMS)</a></li><li><a href="../pages/smart-home.html">خانه هوشمند</a></li><li><a href="index.html" aria-current="page">مقالات</a></li></ul>
+<div class="nav-tools"><button class="tool-btn theme-toggle" type="button" aria-label="تغییر تم" aria-pressed="false"><svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M5 19l1.5-1.5M17.5 6.5L19 5"/></svg><svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 13A9 9 0 1111 3a7 7 0 0010 10z"/></svg></button>
+<a href="../index.html#contact" class="btn btn-primary nav-cta">مشاوره رایگان</a><button class="burger" id="burger" type="button" aria-label="باز کردن منو" aria-controls="menu" aria-expanded="false">☰</button></div>
+</div></header>
+
+<main id="main-content">
+
+<section class="page-hero">
+<canvas class="net-map" aria-hidden="true"></canvas>
+<div class="container" style="position:relative">
+<ol class="crumbs"><li><a href="../index.html">خانه</a></li><li><a href="index.html">مقالات</a></li><li>BACnet و Modbus</li></ol>
+<h1>پروتکل‌های <span>BACnet</span> و <span>Modbus</span> چه تفاوتی دارند؟</h1>
+<p>راهنمای عملی انتخاب بین دو پروتکل رایج در اتوماسیون ساختمان و صنعت.</p>
+<p class="meta" style="color:#94a3b8;margin-top:14px">زمان مطالعه: حدود ۷ دقیقه</p>
+</div>
+</section>
+
+<section>
+<div class="container">
+<article class="prose" style="max-width:820px;margin:0 auto">
+
+<p>وقتی صحبت از اتوماسیون ساختمان و <a href="../pages/bms.html">سیستم مدیریت ساختمان (BMS)</a> می‌شود، نام دو پروتکل بیش از همه به گوش می‌خورد: <strong>BACnet</strong> و <strong>Modbus</strong>. هر دو سال‌هاست که در پروژه‌های مختلف استفاده می‌شوند، اما کدام یک برای پروژه‌ی شما مناسب‌تر است؟ در این مقاله، تفاوت‌ها، مزایا و معایب هر کدام را بررسی می‌کنیم.</p>
+
+<h2>پروتکل چیست و چرا مهم است؟</h2>
+<p>پروتکل یعنی «زبان مشترک» بین دستگاه‌ها. وقتی یک کنترلر با یک سنسور یا با سیستم مرکزی صحبت می‌کند، باید هر دو به یک زبان حرف بزنند. اگر پروتکل‌ها با هم سازگار نباشند، دستگاه‌ها همدیگر را نمی‌فهمند و پروژه به مشکل می‌خورد.</p>
+<p>انتخاب پروتکل اشتباه می‌تواند باعث شود بعداً برای اضافه کردن یک دستگاه جدید، مجبور به تعویض کنترلر یا خرید مبدل گران‌قیمت شوید.</p>
+
+<h2>Modbus چیست؟</h2>
+<p>Modbus در سال ۱۹۷۹ توسط شرکت Modicon (که بعداً Schneider Electric آن را خرید) توسعه داده شد. هدف اولیه‌اش اتصال PLC‌های صنعتی به تجهیزات بود، ولی به‌سرعت در صنعت فراگیر شد و امروز یکی از ساده‌ترین و پرکاربردترین پروتکل‌ها است.</p>
+
+<h3>انواع Modbus</h3>
+<ul>
+<li><strong>Modbus RTU:</strong> روی بستر سریال RS-485 کار می‌کند. رایج‌ترین و ارزان‌ترین نوع.</li>
+<li><strong>Modbus ASCII:</strong> نسخه‌ی متنی که کمتر استفاده می‌شود.</li>
+<li><strong>Modbus TCP:</strong> روی شبکه‌ی اترنت کار می‌کند و در سال‌های اخیر رواج زیادی پیدا کرده.</li>
+</ul>
+
+<h3>مزایای Modbus</h3>
+<ul class="checklist">
+<li>بسیار ساده و سبک</li>
+<li>تجهیزات و کنترلرهای زیادی از آن پشتیبانی می‌کنند</li>
+<li>هزینه‌ی پیاده‌سازی پایین</li>
+<li>مستندات فراوان و پشتیبانی گسترده</li>
+</ul>
+
+<h3>معایب Modbus</h3>
+<ul>
+<li>ساختار داده محدود (فقط رجیستر و کویل)</li>
+<li>بدون احراز هویت و امنیت ذاتی</li>
+<li>مدیریت خطا محدود</li>
+<li>برای پروژه‌های بزرگ و پیچیده مناسب نیست</li>
+</ul>
+
+<h2>BACnet چیست؟</h2>
+<p>BACnet مخفف Building Automation and Control Networks است و در سال ۱۹۹۵ توسط انجمن ASHRAE آمریکا به‌عنوان یک استاندارد باز (ANSI/ASHRAE 135) معرفی شد. هدفش این بود که برخلاف پروتکل‌های انحصاری شرکت‌ها، یک زبان مشترک و باز برای همه‌ی تجهیزات ساختمانی باشد.</p>
+
+<h3>مزایای BACnet</h3>
+<ul class="checklist">
+<li>طراحی‌شده مخصوص ساختمان (نه صنعت)</li>
+<li>مدل داده‌ی بسیار غنی (Object-based)</li>
+<li>پشتیبانی از Alarm، Trending و Scheduling به‌صورت ذاتی</li>
+<li>استاندارد باز و مستقل از سازنده</li>
+<li>پشتیبانی از IPv6 و شبکه‌های بزرگ</li>
+</ul>
+
+<h3>معایب BACnet</h3>
+<ul>
+<li>پیچیده‌تر از Modbus</li>
+<li>هزینه‌ی تجهیزات معمولاً بالاتر</li>
+<li>پیکربندی نیاز به تخصص بیشتری دارد</li>
+</ul>
+
+<h2>مقایسه‌ی مستقیم</h2>
+<div class="table-wrap">
+<table>
+<thead>
+<tr><th>ویژگی</th><th>Modbus</th><th>BACnet</th></tr>
+</thead>
+<tbody>
+<tr><td>سال معرفی</td><td>۱۹۷۹</td><td>۱۹۹۵</td></tr>
+<tr><td>هدف اصلی</td><td>صنعت و PLC</td><td>ساختمان و HVAC</td></tr>
+<tr><td>پیچیدگی</td><td>ساده</td><td>پیچیده‌تر</td></tr>
+<tr><td>مدل داده</td><td>رجیستر و کویل</td><td>Object-based</td></tr>
+<tr><td>پشتیبانی از Alarm</td><td>خیر (باید دستی)</td><td>بله (ذاتی)</td></tr>
+<tr><td>پشتیبانی از Trend</td><td>خیر (باید دستی)</td><td>بله (ذاتی)</td></tr>
+<tr><td>پشتیبانی از Time Schedule</td><td>خیر</td><td>بله (ذاتی)</td></tr>
+<tr><td>هزینه</td><td>پایین</td><td>متوسط تا بالا</td></tr>
+<tr><td>سرعت</td><td>متوسط</td><td>بالا (روی Ethernet)</td></tr>
+<tr><td>امنیت</td><td>پایین</td><td>بهتر (با Secure BACnet)</td></tr>
+<tr><td>ابعاد شبکه</td><td>کوچک تا متوسط</td><td>متوسط تا بزرگ</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>پس کدام را انتخاب کنیم؟</h2>
+<p>پاسخ به این سوال به چند فاکتور بستگی دارد:</p>
+
+<h3>۱. تجهیزات موجود</h3>
+<p>مهم‌ترین عامل این است که تجهیزات فعلی یا مورد نظر شما از چه پروتکلی پشتیبانی می‌کنند. اگر همه‌ی تجهیزات Modbus RTU هستند، منطقی است که روی همان بمانید، مگر اینکه به قابلیت‌های پیشرفته‌تری نیاز داشته باشید.</p>
+
+<h3>۲. اندازه‌ی پروژه</h3>
+<p>برای یک ساختمان کوچک با چند فن‌کویل، Modbus کافی است. برای یک بیمارستان یا برج اداری با صدها نقطه‌ی کنترلی، BACnet انتخاب بهتری است.</p>
+
+<h3>۳. نیاز به قابلیت‌های پیشرفته</h3>
+<p>اگر به Alarm، Trend و Scheduling نیاز دارید و می‌خواهید خود کنترلر این‌ها را مدیریت کند (نه نرم‌افزار بالادستی)، BACnet انتخاب طبیعی است.</p>
+
+<h3>۴. بودجه</h3>
+<p>پروژه‌های با بودجه‌ی محدود معمولاً Modbus را انتخاب می‌کنند. BACnet گران‌تر است ولی در بلندمدت به‌خاطر قابلیت‌های بیشتر، هزینه‌ی نگهداری کمتری دارد.</p>
+
+<h2>آیا می‌توان از هر دو استفاده کرد؟</h2>
+<p>بله. در بسیاری از پروژه‌های واقعی، از هر دو استفاده می‌شود. کنترلرهای امروزی معمولاً چند پروتکل را پشتیبانی می‌کنند و با استفاده از Gateway، می‌توان Modbus را به BACnet (یا برعکس) ترجمه کرد. این کار در پروژه‌هایی که تجهیزات قدیمی Modbus دارند و می‌خواهند به BACnet مهاجرت کنند، رایج است.</p>
+
+<div class="callout">
+<strong>نکته‌ی عملی:</strong> پیش از خرید تجهیزات، لیست کامل پروتکل‌های مورد نیاز خود را بنویسید و با کارشناس BMS مشورت کنید. انتخاب زودهنگام و بدون بررسی می‌تواند در آینده هزینه‌ی سنگینی به شما تحمیل کند.
+</div>
+
+<h2>وضعیت آینده</h2>
+<p>هر دو پروتکل همچنان فعالانه توسعه می‌یابند. BACnet با نسخه‌های جدید خود (مانند BACnet/SC) امنیت و سرعت را افزایش می‌دهد و Modbus با Modbus TCP سهم خود را در بازار حفظ کرده است. پیش‌بینی می‌شود هر دو در آینده‌ی نزدیک همچنان مورد استفاده قرار گیرند، هرچند سهم BACnet در ساختمان‌های هوشمند بیشتر می‌شود.</p>
+
+<h2>جمع‌بندی</h2>
+<p>Modbus ساده، ارزان و فراگیر است؛ BACnet قدرتمند، استاندارد و مخصوص ساختمان. هیچ‌کدام «بهترین» مطلق نیستند — انتخاب درست به نیاز پروژه، تجهیزات موجود و بودجه بستگی دارد. برای پروژه‌های بزرگ و پیچیده، BACnet انتخاب مطمئن‌تری است؛ برای پروژه‌های کوچک با تجهیزات صنعتی، Modbus کافی است.</p>
+
+<div class="cta-band" style="margin-top:50px">
+<div>
+<h2>پروژه‌ی BMS در ذهن دارید؟</h2>
+<p>کارشناسان ما رایگان نیاز پروژه شما را بررسی می‌کنند.</p>
+</div>
+<a class="btn" href="../index.html?service=bms#contact">مشاوره رایگان</a>
+</div>
+
+</article>
+</div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="foot">
+      <div class="foot-brand"><a class="footer-brand" href="../index.html"><img src="../assets/img/logo.png" alt="" class="foot-logo" width="64" height="64"><strong>معماران هوشمند فردا</strong></a><p>راه‌حل‌های یکپارچه فناوری اطلاعات، شبکه، نرم‌افزار و سیستم‌های هوشمند ساختمان؛ از طراحی تا اجرا و پشتیبانی.</p></div>
+      <div><h4>خدمات</h4><ul><li><a href="../pages/network.html">شبکه و زیرساخت</a></li><li><a href="../pages/software.html">توسعه نرم‌افزار</a></li><li><a href="../pages/bms.html">مدیریت هوشمند ساختمان</a></li><li><a href="../pages/smart-home.html">خانه هوشمند</a></li></ul></div>
+      <div><h4>دسترسی سریع</h4><ul><li><a href="../index.html#about">درباره ما</a></li><li><a href="../index.html#process">روند همکاری</a></li><li><a href="../index.html#services">خدمات</a></li><li><a href="../index.html#contact">تماس و مشاوره</a></li></ul></div>
+      <div><h4>شروع همکاری</h4><p>برای بررسی نیازها و انتخاب راهکار مناسب، درخواست مشاوره ارسال کنید.</p><a class="btn btn-primary footer-cta" href="../index.html#contact">درخواست مشاوره</a></div>
+    </div>
+    <div class="copy">© <span id="yr"></span> معماران هوشمند فردا. تمامی حقوق محفوظ است. — <a href="../privacy.html" style="color:#94a3b8">حریم خصوصی</a></div>
+  </div>
+</footer>
+
+<button class="to-top" aria-label="بازگشت به بالا">↑</button>
+
+<script src="../assets/js/main.js" defer></script>
+</body>
+</html>

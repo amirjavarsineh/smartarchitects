@@ -215,7 +215,7 @@
     start();
   })();
 
-  /* ---------- 3D BMS building ---------- */
+  /* ---------- 3D BMS building (rotation + hover tooltip only) ---------- */
   (function initBuilding() {
     var bld = $('.building');
     if (!bld) return;
@@ -274,33 +274,9 @@
       f.addEventListener('pointerleave', hideTip);
       f.addEventListener('focus', showTip);
       f.addEventListener('blur', hideTip);
-      f.addEventListener('click', function () {
-        if (!tip) return;
-        if (!tip.hidden && tip.textContent === label) hideTip();
-        else showTip();
-      });
-      f.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          showTip();
-        }
-      });
     });
 
-    var readouts = $$('[data-readout]');
-    $$('.sys-btn').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        var on = btn.getAttribute('aria-pressed') !== 'true';
-        btn.setAttribute('aria-pressed', on ? 'true' : 'false');
-        bld.classList.toggle('sys-' + btn.dataset.sys, on);
-        readouts.forEach(function (r) {
-          if (r.dataset.readout === btn.dataset.sys) {
-            var b = r.querySelector('b');
-            if (b) b.textContent = on ? r.dataset.on : r.dataset.off;
-          }
-        });
-      });
-    });
+    /* NOTE: sys-btn wiring lives in initBmsEnhanced below (single source of truth) */
   })();
 
   /* ---------- Contact form ---------- */
@@ -397,4 +373,397 @@
     }
   })();
 
+})();
+
+
+/* ============================================
+   Enhanced BMS Demo — v2
+   ============================================ */
+(function initBmsEnhanced() {
+  'use strict';
+
+  var bld = document.querySelector('.building');
+  var stage = document.querySelector('.demo-stage');
+  if (!bld || !stage) return;
+
+  var root = document.documentElement;
+  var lang = root.lang === 'en' ? 'en' : 'fa';
+  var faDigits = '۰۱۲۳۴۵۶۷۸۹';
+  function fmt(n, dec) {
+    var s = (dec !== undefined ? Number(n).toFixed(dec) : String(n));
+    return lang === 'fa' ? s.replace(/\d/g, function (d) { return faDigits[d]; }) : s;
+  }
+
+  /* -------- Element refs -------- */
+  var floorInfo   = stage.querySelector('.floor-info');
+  var alertPanel  = document.getElementById('alertPanel');   /* FIXED: outside stage */
+  var chartCanvas = document.getElementById('bmsChart');
+  var powerEl     = document.getElementById('powerValue');
+  var statPeople  = document.getElementById('statPeople');
+  var statTemp    = document.getElementById('statTemp');
+  var statSys     = document.getElementById('statSystems');
+  var dnBtn       = document.getElementById('dayNightBtn');
+  var alertBtn    = document.getElementById('alertBtn');
+
+  /* -------- Floor data -------- */
+  var floorData = {
+    0: { name: 'همکف — لابی و کنترل دسترسی', people: 8,  temp: 23.0, lights: 6 },
+    1: { name: 'طبقه ۱ — اداری',              people: 12, temp: 22.5, lights: 8 },
+    2: { name: 'طبقه ۲ — اداری',              people: 10, temp: 22.0, lights: 7 },
+    3: { name: 'طبقه ۳ — اتاق سرور',          people: 0,  temp: 19.0, lights: 2 },
+    4: { name: 'طبقه ۴ — جلسات',              people: 5,  temp: 21.0, lights: 4 },
+    5: { name: 'پشت‌بام — چیلر و تأسیسات',    people: 0,  temp: 30.0, lights: 1 }
+  };
+
+  /* -------- Current state -------- */
+  var state = {
+    light: false,
+    hvac: false,
+    security: false,
+    day: false,
+    scenario: null,
+    people: 25,
+    temp: 22,
+    power: 5.5,
+    alert: null
+  };
+
+  /* -------- Scenario definitions -------- */
+  var scenarios = {
+    morning:  { name: 'صبح',      light: true,  hvac: false, security: false, people: 8,  temp: 21 },
+    work:     { name: 'روز کاری', light: true,  hvac: true,  security: false, people: 35, temp: 22 },
+    night:    { name: 'شب',       light: false, hvac: false, security: true,  people: 2,  temp: 19 },
+    vacation: { name: 'تعطیل',    light: false, hvac: false, security: true,  people: 0,  temp: 17 }
+  };
+
+  /* ================================================================
+     Apply system states to building & UI
+     ================================================================ */
+  function applySystems() {
+    bld.classList.toggle('sys-light', state.light);
+    bld.classList.toggle('sys-hvac', state.hvac);
+    bld.classList.toggle('sys-security', state.security);
+
+    document.querySelectorAll('.sys-btn').forEach(function (btn) {
+      var sys = btn.dataset.sys;
+      var on = (sys === 'light' && state.light)
+            || (sys === 'hvac' && state.hvac)
+            || (sys === 'security' && state.security);
+      btn.setAttribute('aria-pressed', on ? 'true' : 'false');
+    });
+
+    document.querySelectorAll('[data-readout]').forEach(function (r) {
+      var key = r.dataset.readout;
+      var b = r.querySelector('b');
+      if (!b) return;
+      if (key === 'light')    b.textContent = state.light ? r.dataset.on : r.dataset.off;
+      if (key === 'hvac')     b.textContent = state.hvac ? fmt(state.temp, 0) + '°C' : '—';
+      if (key === 'security') b.textContent = state.security ? r.dataset.on : r.dataset.off;
+    });
+
+    var active = 0;
+    if (state.light)    active++;
+    if (state.hvac)     active++;
+    if (state.security) active++;
+    if (statSys) statSys.textContent = fmt(active);
+  }
+
+  /* ================================================================
+     Recompute power from current state + noise
+     ================================================================ */
+  function computePower() {
+    var base = 0.6;
+    if (state.light)    base += 3.2;
+    if (state.hvac)     base += 4.8;
+    if (state.security) base += 0.9;
+    base += state.people * 0.03;
+    base += (Math.random() - 0.5) * 0.4;
+    return Math.max(0.1, base);
+  }
+
+  /* ================================================================
+     Live chart
+     ================================================================ */
+  var powerHistory = [];
+  var HISTORY = 40;
+  for (var i = 0; i < HISTORY; i++) powerHistory.push(0.6);
+
+  function drawChart() {
+    if (!chartCanvas || !chartCanvas.getContext) return;
+    var ctx = chartCanvas.getContext('2d');
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    var w = chartCanvas.clientWidth;
+    var h = chartCanvas.clientHeight;
+    if (!w || !h) return;
+    chartCanvas.width  = w * dpr;
+    chartCanvas.height = h * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.clearRect(0, 0, w, h);
+
+    var data = powerHistory;
+    var maxV = Math.max.apply(null, data.concat([10])) * 1.1;
+
+    var pad = 4;
+    var step = (w - pad * 2) / (data.length - 1);
+
+    /* area */
+    var grad = ctx.createLinearGradient(0, 0, 0, h);
+    grad.addColorStop(0, 'rgba(20,184,166,.42)');
+    grad.addColorStop(1, 'rgba(20,184,166,0)');
+    ctx.beginPath();
+    ctx.moveTo(pad, h);
+    data.forEach(function (v, i) {
+      var x = pad + i * step;
+      var y = h - (v / maxV) * (h - 10) - 4;
+      ctx.lineTo(x, y);
+    });
+    ctx.lineTo(pad + (data.length - 1) * step, h);
+    ctx.closePath();
+    ctx.fillStyle = grad;
+    ctx.fill();
+
+    /* line */
+    ctx.beginPath();
+    data.forEach(function (v, i) {
+      var x = pad + i * step;
+      var y = h - (v / maxV) * (h - 10) - 4;
+      if (i === 0) ctx.moveTo(x, y);
+      else ctx.lineTo(x, y);
+    });
+    ctx.strokeStyle = '#14b8a6';
+    ctx.lineWidth = 2;
+    ctx.lineJoin = 'round';
+    ctx.stroke();
+
+    /* last dot */
+    var lastV = data[data.length - 1];
+    var lx = pad + (data.length - 1) * step;
+    var ly = h - (lastV / maxV) * (h - 10) - 4;
+    ctx.beginPath();
+    ctx.arc(lx, ly, 3.5, 0, 6.283);
+    ctx.fillStyle = '#f5b942';
+    ctx.fill();
+  }
+
+  function pushPower() {
+    var p = computePower();
+    state.power = p;
+    powerHistory.push(p);
+    if (powerHistory.length > HISTORY) powerHistory.shift();
+    if (powerEl) {
+      powerEl.innerHTML = fmt(p, 1) + ' <span>kW</span>';
+    }
+    drawChart();
+  }
+
+  /* ================================================================
+     Stats update
+     ================================================================ */
+  function updateStats() {
+    if (statPeople) statPeople.textContent = fmt(Math.round(state.people));
+    if (statTemp)   statTemp.textContent   = fmt(state.temp, 1) + '°C';
+    if (statSys) {
+      var a = 0;
+      if (state.light) a++;
+      if (state.hvac) a++;
+      if (state.security) a++;
+      statSys.textContent = fmt(a);
+    }
+  }
+
+  /* ================================================================
+     Scenarios
+     ================================================================ */
+  function applyScenario(key) {
+    var s = scenarios[key];
+    if (!s) return;
+    state.scenario = key;
+    state.light    = s.light;
+    state.hvac     = s.hvac;
+    state.security = s.security;
+    state.people   = s.people;
+    state.temp     = s.temp;
+
+    document.querySelectorAll('.scenario-btn').forEach(function (b) {
+      b.setAttribute('aria-pressed', b.dataset.scenario === key ? 'true' : 'false');
+    });
+
+    applySystems();
+    updateStats();
+    pushPower();
+  }
+
+  /* ================================================================
+     Floor info card
+     ================================================================ */
+  function showFloorInfo(index) {
+    if (!floorInfo) return;
+    var d = floorData[index];
+    if (!d) return;
+
+    var people = d.people;
+    var temp   = d.temp;
+    var lights = d.lights;
+    if (!state.light) lights = 0;
+    if (state.hvac) {
+      temp = state.temp + (d.temp - 22) * 0.3;
+    }
+    if (state.scenario === 'vacation') people = 0;
+
+    floorInfo.innerHTML =
+      '<button class="close" type="button" aria-label="بستن">✕</button>' +
+      '<h4>' + d.name + '</h4>' +
+      '<div class="row"><span>🌡️ دما</span><b>' + fmt(temp, 1) + '°C</b></div>' +
+      '<div class="row"><span>💡 چراغ روشن</span><b>' + fmt(lights) + '</b></div>' +
+      '<div class="row"><span>👥 افراد حاضر</span><b>' + fmt(people) + '</b></div>' +
+      '<div class="row"><span>⚡ مصرف لحظه‌ای</span><b>' + fmt(d.lights * 0.15 + d.people * 0.05, 1) + ' kW</b></div>';
+
+    floorInfo.hidden = false;
+
+    var closeBtn = floorInfo.querySelector('.close');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', function () {
+        floorInfo.hidden = true;
+      });
+    }
+  }
+
+  /* ================================================================
+     Wire scenario buttons
+     ================================================================ */
+  document.querySelectorAll('.scenario-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      applyScenario(btn.dataset.scenario);
+    });
+  });
+
+  /* ================================================================
+     Wire manual sys buttons — SINGLE source of truth
+     ================================================================ */
+  document.querySelectorAll('.sys-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var sys = btn.dataset.sys;
+      state[sys] = !state[sys];
+      state.scenario = null;
+      document.querySelectorAll('.scenario-btn').forEach(function (b) {
+        b.setAttribute('aria-pressed', 'false');
+      });
+      applySystems();
+      updateStats();
+      pushPower();
+    });
+  });
+
+  /* ================================================================
+     Wire floor click → info
+     ================================================================ */
+  document.querySelectorAll('.floor').forEach(function (f) {
+    f.addEventListener('click', function () {
+      var idx = parseInt(f.style.getPropertyValue('--i'), 10);
+      if (!isNaN(idx)) showFloorInfo(idx);
+    });
+    f.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        var idx = parseInt(f.style.getPropertyValue('--i'), 10);
+        if (!isNaN(idx)) showFloorInfo(idx);
+      }
+    });
+  });
+
+  /* ================================================================
+     Day / Night toggle
+     ================================================================ */
+  if (dnBtn) {
+    dnBtn.addEventListener('click', function () {
+      state.day = !state.day;
+      stage.classList.toggle('day-bg', state.day);
+      dnBtn.textContent = state.day
+        ? '☀️ حالت روز — کلیک برای شب'
+        : '🌙 حالت شب — کلیک برای روز';
+    });
+    dnBtn.textContent = '🌙 حالت شب — کلیک برای روز';
+  }
+
+  /* ================================================================
+     Alert simulation
+     ================================================================ */
+  var alertTimer = null;
+  function showAlert() {
+    if (!alertPanel) return;
+    state.alert = 'server-temp';
+    alertPanel.innerHTML =
+      '<div class="a-head">' +
+        '<span class="a-icon">⚠️</span>' +
+        '<h4>هشدار: دمای اتاق سرور بالا رفت</h4>' +
+      '</div>' +
+      '<p>دمای اتاق سرور به ۳۲°C رسیده است — بالاتر از حد مجاز (۲۷°C).</p>' +
+      '<div class="actions">' +
+        '<button class="primary" data-action="fan">روشن کردن فن</button>' +
+        '<button class="ghost" data-action="ignore">نادیده بگیر</button>' +
+        '<button class="ghost" data-action="close" aria-label="بستن">✕</button>' +
+      '</div>';
+    alertPanel.hidden = false;
+
+    alertPanel.querySelectorAll('[data-action]').forEach(function (b) {
+      b.addEventListener('click', function () {
+        if (b.dataset.action === 'fan') {
+          state.hvac = true;
+          applySystems();
+          updateStats();
+          pushPower();
+        }
+        state.alert = null;
+        alertPanel.hidden = true;
+        clearTimeout(alertTimer);
+      });
+    });
+
+    clearTimeout(alertTimer);
+    alertTimer = setTimeout(function () {
+      if (state.alert === 'server-temp') {
+        state.alert = null;
+        alertPanel.hidden = true;
+      }
+    }, 12000);
+  }
+
+  if (alertBtn) {
+    alertBtn.addEventListener('click', showAlert);
+  }
+
+  /* ================================================================
+     Auto-update loop (every 2.5s)
+     ================================================================ */
+  if (!reduced) {
+    setInterval(function () {
+      if (state.people > 0) {
+        state.people = Math.max(0, state.people + (Math.random() - 0.5) * 2);
+      }
+      if (state.hvac) {
+        state.temp += (Math.random() - 0.5) * 0.3;
+      }
+      updateStats();
+      pushPower();
+    }, 2500);
+  }
+
+  /* ================================================================
+     Resize handler
+     ================================================================ */
+  var rt;
+  window.addEventListener('resize', function () {
+    clearTimeout(rt);
+    rt = setTimeout(drawChart, 150);
+  });
+
+  /* ================================================================
+     Init
+     ================================================================ */
+  applySystems();
+  updateStats();
+  for (var k = 0; k < HISTORY; k++) {
+    powerHistory[k] = computePower() * 0.5;
+  }
+  pushPower();
 })();

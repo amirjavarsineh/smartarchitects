@@ -8,18 +8,34 @@
 <meta property="og:image" content="https://smartarchitects.ir/assets/img/og-cover.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <script>(function(){try{var t=localStorage.getItem('theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.dataset.theme=t}catch(e){}})()</script>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"><link rel="stylesheet" href="../assets/css/style.css">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/style.css">
 <link rel="icon" type="image/png" sizes="96x96" href="../assets/img/favicon-96x96.png">
 <link rel="shortcut icon" href="../assets/img/favicon.ico">
 <link rel="apple-touch-icon" sizes="180x180" href="../assets/img/apple-touch-icon.png">
 <link rel="manifest" href="../site.webmanifest">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {"@type":"Question","name":"ساخت یک نرم‌افزار سفارشی چقدر طول می‌کشد؟","acceptedAnswer":{"@type":"Answer","text":"بسته به دامنه پروژه، نسخه اولیه معمولاً ۶ تا ۱۲ هفته زمان می‌برد و پس از آن به‌صورت مرحله‌ای توسعه پیدا می‌کند."}},
+    {"@type":"Question","name":"مالکیت کد با چه کسی است؟","acceptedAnswer":{"@type":"Answer","text":"طبق قرارداد، کد منبع و مستندات پس از تسویه به شما تحویل داده می‌شود."}},
+    {"@type":"Question","name":"آیا نرم‌افزار را به سیستم‌های فعلی ما وصل می‌کنید؟","acceptedAnswer":{"@type":"Answer","text":"بله؛ از طریق API، پایگاه داده یا فایل‌های تبادلی با سیستم‌های موجود یکپارچه می‌کنیم."}},
+    {"@type":"Question","name":"چطور هزینه پروژه را دقیق‌تر برآورد کنیم؟","acceptedAnswer":{"@type":"Answer","text":"با تعریف دامنه، نقش‌های کاربری، گزارش‌ها، اتصال‌های بیرونی و معیار پذیرش؛ برآورد مرحله‌ای پس از کشف نیازمندی‌ها دقیق‌تر است."}},
+    {"@type":"Question","name":"آیا پس از تحویل پشتیبانی لازم است؟","acceptedAnswer":{"@type":"Answer","text":"بله؛ به‌روزرسانی امنیتی، پایش خطا، پشتیبان‌گیری و پاسخ به تغییرات بخشی از چرخه عمر نرم‌افزار هستند."}},
+    {"@type":"Question","name":"داده‌های فعلی چگونه منتقل می‌شوند؟","acceptedAnswer":{"@type":"Answer","text":"ابتدا کیفیت و قالب داده بررسی می‌شود، سپس مهاجرت آزمایشی، اعتبارسنجی و برنامه بازگشت در صورت بروز خطا تعریف می‌گردد."}}
+  ]
+}
+</script>
 </head><body>
 
 <a class="skip" href="#main-content">رفتن به محتوای اصلی</a>
 
 <header class="solid"><div class="container nav">
 <a class="logo" href="../index.html" aria-label="معماران هوشمند فردا - صفحه اصلی"><img class="logo-img" src="../assets/img/logo.png" alt="" width="56" height="56"><span>معماران هوشمند فردا</span></a>
-<ul class="menu" id="menu"><li><a href="../index.html">خانه</a></li><li><a href="network.html">شبکه و زیرساخت</a></li><li><a href="software.html" aria-current="page">توسعه نرم‌افزار</a></li><li><a href="bms.html">مدیریت هوشمند ساختمان (BMS)</a></li><li><a href="smart-home.html">خانه هوشمند</a></li></ul>
+<ul class="menu" id="menu"><li><a href="../index.html">خانه</a></li><li><a href="network.html">شبکه و زیرساخت</a></li><li><a href="software.html" aria-current="page">توسعه نرم‌افزار</a></li><li><a href="bms.html">مدیریت هوشمند ساختمان (BMS)</a></li><li><a href="smart-home.html">خانه هوشمند</a></li><li><a href="../blog/index.html">مقالات</a></li></ul>
 <div class="nav-tools"><button class="tool-btn theme-toggle" type="button" aria-label="تغییر تم" aria-pressed="false"><svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M5 19l1.5-1.5M17.5 6.5L19 5"/></svg><svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 13A9 9 0 1111 3a7 7 0 0010 10z"/></svg></button>
 <a href="../index.html?service=software#contact" class="btn btn-primary nav-cta">مشاوره رایگان</a><button class="burger" id="burger" type="button" aria-label="باز کردن منو" aria-controls="menu" aria-expanded="false">☰</button></div>
 </div></header>
@@ -36,9 +52,8 @@
 <div class="feature"><b>داشبورد مدیریتی</b><span>گزارش‌ها و نمودارهای لحظه‌ای برای تصمیم‌گیری</span></div>
 <div class="feature"><b>یکپارچه‌سازی</b><span>اتصال حسابداری، CRM، انبار و BMS از طریق API</span></div>
 </div>
-<br>
+
 <h2>روش کار</h2>
-<br>
 <ol>
 <li><strong>تحلیل نیاز:</strong> فرایندهای فعلی را بررسی و مستند می‌کنیم.</li>
 <li><strong>طراحی:</strong> نمونه اولیه رابط کاربری را پیش از برنامه‌نویسی تأیید می‌کنید.</li>
@@ -47,9 +62,38 @@
 </ol>
 </article></div></section>
 
-<section class="knowledge-section"><div class="container"><div class="section-head reveal"><span class="eyebrow">راهنمای تخصصی</span><h2>مقاله‌ها و نکته‌های کاربردی</h2><p>راهنماهای کوتاه برای تصمیم‌گیری آگاهانه‌تر و اجرای اصولی‌تر پروژه.</p></div><div class="knowledge-grid"><article class="knowledge-card reveal"><span class="knowledge-tag">مدیریت محصول</span><h3>از ایده تا نسخه اولیه نرم‌افزار</h3><p>نیازمندی‌ها را به سناریوهای واقعی کاربر تبدیل کنید، قابلیت‌های ضروری را اولویت‌بندی کنید و با یک نسخه اولیه قابل‌آزمایش ریسک پروژه را کم کنید.</p></article><article class="knowledge-card reveal"><span class="knowledge-tag">معماری نرم‌افزار</span><h3>API و یکپارچه‌سازی سیستم‌ها</h3><p>پیش از اتصال سامانه‌ها، مالک داده، مجوزها، محدودیت نرخ، شیوه ثبت خطا و نسخه‌بندی API را مشخص کنید تا اتصال قابل نگهداری بماند.</p></article><article class="knowledge-card reveal"><span class="knowledge-tag">امنیت کاربردی</span><h3>امنیت را از روز اول وارد پروژه کنید</h3><p>اصل حداقل دسترسی، نگهداری امن کلیدها، به‌روزرسانی وابستگی‌ها، پشتیبان‌گیری و ثبت رخدادها باید جزئی از طراحی باشند، نه کارهای انتهای پروژه.</p></article></div></div></section>
+<section class="knowledge-section"><div class="container"><div class="section-head reveal"><span class="eyebrow">راهنمای تخصصی</span><h2>مقاله‌ها و نکته‌های کاربردی</h2><p>راهنماهای کوتاه برای تصمیم‌گیری آگاهانه‌تر و اجرای اصولی‌تر پروژه.</p></div><div class="knowledge-grid">
 
-<section id="faq"><div class="container"><h2 class="reveal">سوالات متداول</h2><div class="faq reveal"><details><summary>ساخت یک نرم‌افزار سفارشی چقدر طول می‌کشد؟</summary><p>بسته به دامنه پروژه، نسخه اولیه معمولاً ۶ تا ۱۲ هفته زمان می‌برد و پس از آن به‌صورت مرحله‌ای توسعه پیدا می‌کند.</p></details><details><summary>مالکیت کد با چه کسی است؟</summary><p>طبق قرارداد، کد منبع و مستندات پس از تسویه به شما تحویل داده می‌شود.</p></details><details><summary>آیا نرم‌افزار را به سیستم‌های فعلی ما وصل می‌کنید؟</summary><p>بله؛ از طریق API، پایگاه داده یا فایل‌های تبادلی با سیستم‌های موجود یکپارچه می‌کنیم.</p></details><details><summary>چطور هزینه پروژه را دقیق‌تر برآورد کنیم؟</summary><p>با تعریف دامنه، نقش‌های کاربری، گزارش‌ها، اتصال‌های بیرونی و معیار پذیرش؛ برآورد مرحله‌ای پس از کشف نیازمندی‌ها دقیق‌تر است.</p></details><details><summary>آیا پس از تحویل پشتیبانی لازم است؟</summary><p>بله؛ به‌روزرسانی امنیتی، پایش خطا، پشتیبان‌گیری و پاسخ به تغییرات بخشی از چرخه عمر نرم‌افزار هستند.</p></details><details><summary>داده‌های فعلی چگونه منتقل می‌شوند؟</summary><p>ابتدا کیفیت و قالب داده بررسی می‌شود، سپس مهاجرت آزمایشی، اعتبارسنجی و برنامه بازگشت در صورت بروز خطا تعریف می‌گردد.</p></details>
+<article class="knowledge-card reveal">
+<span class="knowledge-tag">سامانه‌های سازمانی</span>
+<h3><a href="../blog/software-erp-vs-crm.html" style="color:inherit">تفاوت ERP و CRM چیست؟ کدام برای شما مناسب است؟</a></h3>
+<p>راهنمای انتخاب بین دو سامانه‌ی اصلی سازمانی بر اساس نوع کسب‌وکار و نیاز واقعی.</p>
+<a class="card-link" href="../blog/software-erp-vs-crm.html">ادامه‌ی مطلب ←</a>
+</article>
+
+
+
+
+<article class="knowledge-card reveal">
+<span class="knowledge-tag">راهنمای انتخاب</span>
+<h3><a href="../blog/software-ready-vs-custom.html" style="color:inherit">نرم‌افزار آماده یا سفارشی؟</a></h3>
+<p>مقایسه‌ی هزینه، زمان، انعطاف و مالکیت؛ راهنمای انتخاب بر اساس نیاز واقعی کسب‌وکار.</p>
+<a class="card-link" href="../blog/software-ready-vs-custom.html">ادامه‌ی مطلب ←</a>
+</article>
+
+
+<article class="knowledge-card reveal"><span class="knowledge-tag">مدیریت محصول</span><h3><a href="../blog/software-mvp.html" style="color:inherit">از ایده تا نسخه اولیه نرم‌افزار</a></h3><p>نیازمندی‌ها را به سناریوهای واقعی کاربر تبدیل کنید، قابلیت‌های ضروری را اولویت‌بندی کنید و با یک نسخه اولیه قابل‌آزمایش ریسک پروژه را کم کنید.</p><a class="card-link" href="../blog/software-mvp.html">ادامه‌ی مطلب ←</a></article>
+<article class="knowledge-card reveal"><span class="knowledge-tag">معماری نرم‌افزار</span><h3><a href="../blog/software-api.html" style="color:inherit">API و یکپارچه‌سازی سیستم‌ها</a></h3><p>پیش از اتصال سامانه‌ها، مالک داده، مجوزها، محدودیت نرخ، شیوه ثبت خطا و نسخه‌بندی API را مشخص کنید تا اتصال قابل نگهداری بماند.</p><a class="card-link" href="../blog/software-api.html">ادامه‌ی مطلب ←</a></article>
+<article class="knowledge-card reveal"><span class="knowledge-tag">امنیت کاربردی</span><h3><a href="../blog/software-security.html" style="color:inherit">امنیت را از روز اول وارد پروژه کنید</a></h3><p>اصل حداقل دسترسی، نگهداری امن کلیدها، به‌روزرسانی وابستگی‌ها، پشتیبان‌گیری و ثبت رخدادها باید جزئی از طراحی باشند، نه کارهای انتهای پروژه.</p><a class="card-link" href="../blog/software-security.html">ادامه‌ی مطلب ←</a></article>
+</div></div></section>
+
+<section id="faq"><div class="container"><h2 class="reveal">سوالات متداول</h2><div class="faq reveal">
+<details><summary>ساخت یک نرم‌افزار سفارشی چقدر طول می‌کشد؟</summary><p>بسته به دامنه پروژه، نسخه اولیه معمولاً ۶ تا ۱۲ هفته زمان می‌برد و پس از آن به‌صورت مرحله‌ای توسعه پیدا می‌کند.</p></details>
+<details><summary>مالکیت کد با چه کسی است؟</summary><p>طبق قرارداد، کد منبع و مستندات پس از تسویه به شما تحویل داده می‌شود.</p></details>
+<details><summary>آیا نرم‌افزار را به سیستم‌های فعلی ما وصل می‌کنید؟</summary><p>بله؛ از طریق API، پایگاه داده یا فایل‌های تبادلی با سیستم‌های موجود یکپارچه می‌کنیم.</p></details>
+<details><summary>چطور هزینه پروژه را دقیق‌تر برآورد کنیم؟</summary><p>با تعریف دامنه، نقش‌های کاربری، گزارش‌ها، اتصال‌های بیرونی و معیار پذیرش؛ برآورد مرحله‌ای پس از کشف نیازمندی‌ها دقیق‌تر است.</p></details>
+<details><summary>آیا پس از تحویل پشتیبانی لازم است؟</summary><p>بله؛ به‌روزرسانی امنیتی، پایش خطا، پشتیبان‌گیری و پاسخ به تغییرات بخشی از چرخه عمر نرم‌افزار هستند.</p></details>
+<details><summary>داده‌های فعلی چگونه منتقل می‌شوند؟</summary><p>ابتدا کیفیت و قالب داده بررسی می‌شود، سپس مهاجرت آزمایشی، اعتبارسنجی و برنامه بازگشت در صورت بروز خطا تعریف می‌گردد.</p></details>
 </div>
 <div class="cta-band reveal" style="margin-top:50px"><div><h2>آماده شروع هستید؟</h2><p>کارشناسان ما رایگان پروژه شما را بررسی می‌کنند.</p></div><a class="btn" href="../index.html?service=software#contact">مشاوره رایگان</a></div></div></section>
 
@@ -61,7 +105,8 @@
       <div><h4>دسترسی سریع</h4><ul><li><a href="../index.html#about">درباره ما</a></li><li><a href="../index.html#process">روند همکاری</a></li><li><a href="../index.html#services">خدمات</a></li><li><a href="../index.html#contact">تماس و مشاوره</a></li></ul></div>
       <div><h4>شروع همکاری</h4><p>برای بررسی نیازها و انتخاب راهکار مناسب، درخواست مشاوره ارسال کنید.</p><a class="btn btn-primary footer-cta" href="../index.html#contact">درخواست مشاوره</a></div>
     </div>
-<div class="copy">© <span id="yr"></span> معماران هوشمند فردا. تمامی حقوق محفوظ است. — <a href="privacy.html" style="color:#94a3b8">حریم خصوصی</a></div>  </div>
+    <div class="copy">© <span id="yr"></span> معماران هوشمند فردا. تمامی حقوق محفوظ است. — <a href="../privacy.html" style="color:#94a3b8">حریم خصوصی</a></div>
+  </div>
 </footer>
 </main>
 <button class="to-top" aria-label="بازگشت به بالا">↑</button>

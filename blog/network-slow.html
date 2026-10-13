@@ -1,0 +1,291 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>چرا شبکه سازمانی کند است؟ ۹ دلیل رایج و راه‌حل | معماران هوشمند فردا</title>
+<meta name="description" content="راهنمای کامل دلایل کندی شبکه سازمانی: پهنای باند، تداخل Wi-Fi، ترافیک broadcast، تجهیزات قدیمی و راه‌حل هر مشکل.">
+<link rel="canonical" href="https://smartarchitects.ir/blog/network-slow.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="چرا شبکه سازمانی کند است؟">
+<meta property="og:description" content="۹ دلیل رایج کندی شبکه و راه‌حل هر کدام.">
+<meta property="og:url" content="https://smartarchitects.ir/blog/network-slow.html">
+<meta property="og:image" content="https://smartarchitects.ir/assets/img/og-cover.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<script>(function(){try{var t=localStorage.getItem('theme')||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.dataset.theme=t}catch(e){}})()</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" sizes="96x96" href="../assets/img/favicon-96x96.png">
+<link rel="shortcut icon" href="../assets/img/favicon.ico">
+<link rel="apple-touch-icon" sizes="180x180" href="../assets/img/apple-touch-icon.png">
+<link rel="manifest" href="../site.webmanifest">
+<link rel="stylesheet" href="../assets/css/style.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "چرا شبکه سازمانی کند است؟",
+  "description": "۹ دلیل رایج کندی شبکه سازمانی و راه‌حل هر کدام.",
+  "author": { "@type": "Organization", "name": "معماران هوشمند فردا" },
+  "publisher": {
+    "@type": "Organization",
+    "name": "معماران هوشمند فردا",
+    "logo": { "@type": "ImageObject", "url": "https://smartarchitects.ir/assets/img/logo.png" }
+  },
+  "datePublished": "2026-10-13",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://smartarchitects.ir/blog/network-slow.html"
+  }
+}
+</script>
+</head>
+<body>
+
+<a class="skip" href="#main-content">رفتن به محتوای اصلی</a>
+
+<header class="solid"><div class="container nav">
+<a class="logo" href="../index.html" aria-label="معماران هوشمند فردا - صفحه اصلی"><img class="logo-img" src="../assets/img/logo.png" alt="" width="56" height="56"><span>معماران هوشمند فردا</span></a>
+<ul class="menu" id="menu"><li><a href="../index.html">خانه</a></li><li><a href="../pages/network.html">شبکه و زیرساخت</a></li><li><a href="../pages/software.html">توسعه نرم‌افزار</a></li><li><a href="../pages/bms.html">مدیریت هوشمند ساختمان (BMS)</a></li><li><a href="../pages/smart-home.html">خانه هوشمند</a></li><li><a href="index.html" aria-current="page">مقالات</a></li></ul>
+<div class="nav-tools"><button class="tool-btn theme-toggle" type="button" aria-label="تغییر تم" aria-pressed="false"><svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M5 19l1.5-1.5M17.5 6.5L19 5"/></svg><svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 13A9 9 0 1111 3a7 7 0 0010 10z"/></svg></button>
+<a href="../index.html#contact" class="btn btn-primary nav-cta">مشاوره رایگان</a><button class="burger" id="burger" type="button" aria-label="باز کردن منو" aria-controls="menu" aria-expanded="false">☰</button></div>
+</div></header>
+
+<main id="main-content">
+
+<section class="page-hero">
+<canvas class="net-map" aria-hidden="true"></canvas>
+<div class="container" style="position:relative">
+<ol class="crumbs"><li><a href="../index.html">خانه</a></li><li><a href="index.html">مقالات</a></li><li>کندی شبکه</li></ol>
+<h1>چرا <span>شبکه سازمانی</span> کند است؟</h1>
+<p>۹ دلیل رایج کندی شبکه و راه‌حل هر کدام — راهنمای عملی برای مدیران و کارشناسان IT.</p>
+<p class="meta" style="color:#94a3b8;margin-top:14px">زمان مطالعه: حدود ۹ دقیقه</p>
+</div>
+</section>
+
+<section>
+<div class="container">
+<article class="prose" style="max-width:820px;margin:0 auto">
+
+<p>یکی از شکایات دائمی در سازمان‌ها این است: «اینترنت کنده»، «فایل‌ها دیر باز می‌شن»، «سیستم حسابداری کنده». ولی مشکل همیشه «اینترنت» نیست — بسیاری از کندی‌ها ریشه در <a href="../pages/network.html">زیرساخت شبکه داخلی</a> دارند. در این مقاله، ۹ دلیل رایج و راه‌حل هر کدام را بررسی می‌کنیم.</p>
+
+<h2>۱. پهنای باند ناکافی</h2>
+<p>ساده‌ترین دلیل، ولی نه همیشه درست. اگر ۵۰ کارمند روی یک لینک ۱۶ مگابیت کار کنند، حتی کارهای ساده هم کند می‌شود.</p>
+
+<h3>علائم</h3>
+<ul>
+<li>کندی همه‌ی کاربران به‌طور همزمان</li>
+<li>سرعت بارگذاری سایت‌های خارجی خیلی پایین</li>
+<li>در ساعات اوج (مثلاً ۱۰ صبح) بدتر می‌شود</li>
+</ul>
+
+<h3>راه‌حل</h3>
+<ul class="checklist">
+<li>مصرف واقعی را با ابزار مانیتورینگ اندازه‌گیری کنید</li>
+<li>لینک اینترنت را ارتقا دهید</li>
+<li>از لینک پشتیبان (Load Balancing) استفاده کنید</li>
+<li>مصرف‌کننده‌های غیرضروری (استریم، دانلود) را محدود کنید</li>
+</ul>
+
+<h2>۲. تداخل Wi-Fi</h2>
+<p>یکی از رایج‌ترین دلایل کندی، مخصوصاً در ساختمان‌های شلوغ. اکسس‌پوینت‌های همسایه روی کانال‌های یکسان کار می‌کنند و تداخل ایجاد می‌شود.</p>
+
+<h3>علائم</h3>
+<ul>
+<li>کندی مخصوصاً در ساعات شلوغ (ساعت ناهار، بعدازظهر)</li>
+<li>کندی در بعضی نقاط خاص ساختمان</li>
+<li>اتصال قطع و وصل می‌شود</li>
+<li>با کابل سرعت خوب است، با Wi-Fi بد</li>
+</ul>
+
+<h3>راه‌حل</h3>
+<ul class="checklist">
+<li>Site Survey انجام دهید تا نقاط ضعیف مشخص شود</li>
+<li>کانال‌های Wi-Fi را بهینه کنید (کانال‌های ۱، ۶، ۱۱ در 2.4GHz)</li>
+<li>از باند 5GHz استفاده کنید برای دستگاه‌های نزدیک</li>
+<li>اکسس‌پوینت‌های قدیمی (802.11n) را با استانداردهای جدید (Wi-Fi 6) تعویض کنید</li>
+<li>تعداد اکسس‌پوینت را بر اساس تراکم کاربران تنظیم کنید</li>
+</ul>
+
+<h2>۳. تجهیزات شبکه‌ی قدیمی</h2>
+<p>سوییچ‌های ۱۰۰ مگابیت، روترهای قدیمی و اکسس‌پوینت‌های 802.11n گلوگاه ایجاد می‌کنند.</p>
+
+<h3>علائم</h3>
+<ul>
+<li>سرعت واقعی کاربران کمتر از ۱۰۰ مگابیت</li>
+<li>کندی در انتقال فایل‌های حجیم داخلی</li>
+<li>سوییچ‌ها صدای زیاد یا گرمای زیاد دارند</li>
+</ul>
+
+<h3>راه‌حل</h3>
+<ul class="checklist">
+<li>سوییچ‌های Gigabit و اگر لازم است ۱۰G را جایگزین کنید</li>
+<li>روتر با توان پردازش بالاتر انتخاب کنید</li>
+<li>اکسس‌پوینت‌های Wi-Fi 6 را جایگزین مدل‌های قدیمی کنید</li>
+</ul>
+
+<h2>۴. طراحی ضعیف VLAN و ترافیک Broadcast</h2>
+<p>اگر همه‌ی دستگاه‌ها در یک شبکه‌ی بزرگ باشند (بدون VLAN)، ترافیک Broadcast بی‌رویه می‌شود و کارایی افت می‌کند.</p>
+
+<h3>علائم</h3>
+<ul>
+<li>کندی عمومی، مخصوصاً در ساعات شلوغ</li>
+<li>افزایش تأخیر در همه‌ی کاربران</li>
+<li>سوییچ‌ها CPU بالا دارند</li>
+</ul>
+
+<h3>راه‌حل</h3>
+<ul class="checklist">
+<li>شبکه را با VLAN تفکیک کنید (دوربین، مهمان، کاربران، سرور)</li>
+<li>از IGMP Snooping و Storm Control استفاده کنید</li>
+<li>دستگاه‌های IoT و دوربین‌ها را جدا کنید</li>
+</ul>
+
+<h2>۵. Loop در شبکه</h2>
+<p>اتصال اشتباه کابل که یک حلقه (Loop) در شبکه ایجاد می‌کند، باعث طوفان Broadcast و فلج شدن شبکه می‌شود.</p>
+
+<h3>علائم</h3>
+<ul>
+<li>شبکه به‌طور ناگهانی کاملاً قطع می‌شود</li>
+<li>LED تمام پورت‌های سوییچ به‌سرعت چشمک می‌زند</li>
+<li>بعد از جدا کردن یک کابل، همه‌چیز درست می‌شود</li>
+</ul>
+
+<h3>راه‌حل</h3>
+<ul class="checklist">
+<li>پروتکل STP/RSTP را روی همه‌ی سوییچ‌ها فعال کنید</li>
+<li>مستندسازی دقیق اتصالات</li>
+<li>از BPDU Guard روی پورت‌های Access استفاده کنید</li>
+</ul>
+
+<h2>۶. کابل‌کشی بی‌کیفیت یا آسیب‌دیده</h2>
+<p>کابل‌های بی‌کیفیت، کیستون‌های ارزان یا کابل‌های آسیب‌دیده باعث افت سرعت و خطاهای شبکه می‌شوند.</p>
+
+<h3>علائم</h3>
+<ul>
+<li>کندی مخصوصاً در بعضی پریزهای خاص</li>
+<li>خطای CRC روی لینک</li>
+<li>اتصال در پریز خاص قطع و وصل می‌شود</li>
+</ul>
+
+<h3>راه‌حل</h3>
+<ul class="checklist">
+<li>تست کابل‌ها با دستگاه مخصوص</li>
+<li>کابل‌های معیوب را تعویض کنید</li>
+<li>اطمینان از کیفیت کیستون و پچ‌کورد</li>
+<li>شعاع خمش و جدا کردن از کابل برق را رعایت کنید</li>
+</ul>
+
+<h2>۷. سرور یا سرویس کند</h2>
+<p>گاهی مشکل از شبکه نیست — سرور مقصد کند است. مثلاً فایل سرور قدیمی، CPU بالا، RAM کم یا دیسک کند.</p>
+
+<h3>علائم</h3>
+<ul>
+<li>کندی فقط هنگام دسترسی به یک سرور خاص</li>
+<li>دسترسی به سرورهای دیگر سریع است</li>
+<li>سرعت شبکه در تست speedtest خوب است</li>
+</ul>
+
+<h3>راه‌حل</h3>
+<ul class="checklist">
+<li>منابع سرور (CPU, RAM, Disk) را مانیتور کنید</li>
+<li>در صورت نیاز سرور را ارتقا دهید</li>
+<li>از SSD برای سرورهای فایل استفاده کنید</li>
+<li>سرورهای قدیمی را تعویض کنید</li>
+</ul>
+
+<h2>۸. بدافزار و فعالیت غیرعادی</h2>
+<p>ویروس‌ها و بدافزارها می‌توانند شبکه را اشغال کنند — ارسال اسپم، ماینینگ مخفی، یا دانلود غیرمجاز.</p>
+
+<h3>علائم</h3>
+<ul>
+<li>کندی ناگهانی بدون دلیل مشخص</li>
+<li>ترافیک خروجی بالاتر از حد معمول</li>
+<li>فعالیت‌های غیرعادی در لاگ‌ها</li>
+</ul>
+
+<h3>راه‌حل</h3>
+<ul class="checklist">
+<li>آنتی‌ویروس روی همه‌ی کلاینت‌ها و سرورها</li>
+<li>پایش ترافیک شبکه</li>
+<li>فایروال با قوانین مناسب</li>
+<li>تفکیک شبکه‌ی کاربران از سرورها</li>
+</ul>
+
+<h2>۹. عدم مدیریت پهنای باند (QoS)</h2>
+<p>اگر روی شبکه QoS تنظیم نشده باشد، یک کاربر با دانلود فایل بزرگ می‌تواند پهنای باند کل سازمان را اشغال کند.</p>
+
+<h3>علائم</h3>
+<ul>
+<li>کندی مقطعی و غیرقابل پیش‌بینی</li>
+<li>مشکل فقط در ساعات خاص</li>
+<li>بعد از قطع یک کاربر خاص، همه‌چیز درست می‌شود</li>
+</ul>
+
+<h3>راه‌حل</h3>
+<ul class="checklist">
+<li>QoS را روی روتر/فایروال فعال کنید</li>
+<li>برای ترافیک VoIP و ویدیوکنفرانس اولویت تعیین کنید</li>
+<li>پهنای باند هر کاربر را محدود کنید (Rate Limit)</li>
+<li>ترافیک دانلود سنگین را در ساعات غیرکاری انجام دهید</li>
+</ul>
+
+<h2>چطور مشکل را تشخیص دهیم؟</h2>
+<p>پیش از هر اقدامی، این مراحل را انجام دهید:</p>
+<ol>
+<li><strong>پایش ترافیک:</strong> ابزارهایی مثل PRTG، Zabbix یا SolarWinds</li>
+<li><strong>تست speedtest:</strong> سرعت واقعی داخل شبکه</li>
+<li><strong>تست کابل:</strong> کیفیت فیزیکی لینک‌ها</li>
+<li><strong>Site Survey Wi-Fi:</strong> پوشش و تداخل</li>
+<li><strong>بررسی لاگ تجهیزات:</strong> خطاها و هشدارها</li>
+<li><strong>بررسی منابع سرور:</strong> CPU، RAM، Disk</li>
+</ol>
+
+<div class="callout">
+<strong>نکته‌ی مهم:</strong> ۸۰٪ از مشکلات کندی شبکه با یک <strong>ممیزی شبکه</strong> حرفه‌ای قابل تشخیص است. پیش از خرید تجهیزات جدید یا ارتقای اینترنت، اجازه دهید یک کارشناس شبکه، زیرساخت شما را بررسی کند.
+</div>
+
+<h2>پیشگیری بهتر از درمان</h2>
+<ul class="checklist">
+<li>مستندسازی کامل شبکه</li>
+<li>پایش مستمر ترافیک</li>
+<li>به‌روزرسانی دوره‌ای تجهیزات</li>
+<li>تست کابل‌ها هر چند سال</li>
+<li>بازبینی تنظیمات امنیتی</li>
+<li>آموزش کاربران</li>
+</ul>
+
+<h2>جمع‌بندی</h2>
+<p>کندی شبکه سازمانی همیشه تقصیر اینترنت نیست. با بررسی منظم زیرساخت، پایش ترافیک و به‌روزرسانی تجهیزات، می‌توان از بسیاری از این مشکلات جلوگیری کرد. اگر مشکل ادامه داشت، بهتر است یک متخصص شبکه، ممیزی کامل انجام دهد — نه اینکه فقط اینترنت را ارتقا دهید.</p>
+
+<div class="cta-band" style="margin-top:50px">
+<div>
+<h2>شبکه‌ی سازمان شما کند است؟</h2>
+<p>کارشناسان ما رایگان وضعیت شبکه شما را بررسی می‌کنند.</p>
+</div>
+<a class="btn" href="../index.html?service=network#contact">درخواست بررسی رایگان</a>
+</div>
+
+</article>
+</div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="foot">
+      <div class="foot-brand"><a class="footer-brand" href="../index.html"><img src="../assets/img/logo.png" alt="" class="foot-logo" width="64" height="64"><strong>معماران هوشمند فردا</strong></a><p>راه‌حل‌های یکپارچه فناوری اطلاعات، شبکه، نرم‌افزار و سیستم‌های هوشمند ساختمان؛ از طراحی تا اجرا و پشتیبانی.</p></div>
+      <div><h4>خدمات</h4><ul><li><a href="../pages/network.html">شبکه و زیرساخت</a></li><li><a href="../pages/software.html">توسعه نرم‌افزار</a></li><li><a href="../pages/bms.html">مدیریت هوشمند ساختمان</a></li><li><a href="../pages/smart-home.html">خانه هوشمند</a></li></ul></div>
+      <div><h4>دسترسی سریع</h4><ul><li><a href="../index.html#about">درباره ما</a></li><li><a href="../index.html#process">روند همکاری</a></li><li><a href="../index.html#services">خدمات</a></li><li><a href="../index.html#contact">تماس و مشاوره</a></li></ul></div>
+      <div><h4>شروع همکاری</h4><p>برای بررسی نیازها و انتخاب راهکار مناسب، درخواست مشاوره ارسال کنید.</p><a class="btn btn-primary footer-cta" href="../index.html#contact">درخواست مشاوره</a></div>
+    </div>
+    <div class="copy">© <span id="yr"></span> معماران هوشمند فردا. تمامی حقوق محفوظ است. — <a href="../privacy.html" style="color:#94a3b8">حریم خصوصی</a></div>
+  </div>
+</footer>
+
+<button class="to-top" aria-label="بازگشت به بالا">↑</button>
+
+<script src="../assets/js/main.js" defer></script>
+</body>
+</html>
